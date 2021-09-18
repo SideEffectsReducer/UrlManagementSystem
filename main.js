@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://user_31:leverage@cluster0.xuvw0.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
+const uri = "mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/sample_airbnb?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   console.log(err);
