@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const path = require('path');
-const api = require('./server/routes/api');
+const api = require('./routes/api');
 
 
 const port = 3000;
@@ -50,7 +50,7 @@ app.use(bodyParser.json());
     // angular app.
     app.get('*', (req, res) => {
       console.log(req.url);
-      res.sendFile(path.join(__dirname, 'dist/UrlManagementSystem/index.html'));
+      res.sendFile(path.join(__dirname, '../dist/UrlManagementSystem/index.html'));
     });
 
 app.listen(port, function(){
