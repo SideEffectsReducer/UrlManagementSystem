@@ -7,6 +7,8 @@ import { ListUrlComponent } from './list-url/list-url.component';
 import { AddUrlComponent } from './add-url/add-url.component';
 import { ViewUrlComponent } from './view-url/view-url.component';
 import { EditUrlComponent } from './edit-url/edit-url.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { EditUrlComponent } from './edit-url/edit-url.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
