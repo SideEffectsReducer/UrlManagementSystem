@@ -4,10 +4,14 @@ const Schema = mongoose.Schema;
 
 const urlSchema = new Schema({
     title: String,
+    tagName: String,
     url: String,
-    isActive: String, 
-    lastUpdate: String,
-    pdfPath: String
+    urlLocation: String,
+    active: Boolean,
+    type: String,
+    pdfLocation: String,
+    pdfStored: Boolean,
+    urlTracked: Boolean
 });
 
 let urlModel = mongoose.model('urlModel', urlSchema);

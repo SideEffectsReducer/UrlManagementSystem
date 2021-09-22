@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const path = require('path');
 const api = require('./routes/api');
+var cors = require('cors');
 
 
 const port = 3000;
@@ -19,7 +20,7 @@ mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/sample
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
+app.use(cors());
 
 
  // • This is a special method called `middleware`. Every request will be

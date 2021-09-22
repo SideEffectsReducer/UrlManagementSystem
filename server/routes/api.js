@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+var cors = require('cors');
 
 const urlModel = require('./models/urlModel');
 
@@ -22,7 +23,7 @@ router.get('/list', function (req, res) {
 })
 
 // • Declaring POST method
-router.post('/', function (req, res) {
+router.post('/add', cors(), function (req, res) {
   // • Create and save `example` on MongoDB.
   // • We get information form request body
 
@@ -31,10 +32,14 @@ router.post('/', function (req, res) {
   console.log("title:", req.body.title);
   urlModel.create({
     title: req.body.title,
+    tagName: req.body.tagName,
     url: req.body.url,
-    isActive: req.body.isActive,
-    lastUpdated: req.body.lastUpdated,
-    pdfPath: req.body.pdfPath
+    urlLocation: req.body.urlLocation,
+    active: req.body.active,
+    type: req.body.active,
+    pdfLocation: req.body.pdfLocation,
+    pdfStored: req.body.pdfStored,
+    urlTracked: req.body.urlTracked
   }, function (err, examples) {
     if (err) { res.send(err); }
 

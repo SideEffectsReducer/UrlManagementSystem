@@ -11,7 +11,7 @@ export class AddUrlComponent implements OnInit {
 
   public urlModel = new UrlModel();
   public externalType = true;
-  _url = "http://localhost:3000/api/add";
+  _url = "http://localhost:3000/api/example/add";
 
 
   constructor(private _http: HttpClient) { }
@@ -35,7 +35,10 @@ export class AddUrlComponent implements OnInit {
     console.log("onSubmit()");
     
     //  to do service here
-    this._http.post<any>(this._url, this.urlModel);
+    this._http.post<any>(this._url, this.urlModel).subscribe(
+      data => console.log("success!", data),
+      error => console.log("error!", error)
+    )
 
   }
 
