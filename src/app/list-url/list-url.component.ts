@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { UrlModel } from '../shared/models/url.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -41,6 +41,13 @@ export class ListUrlComponent implements OnInit {
         console.log("First record: ", this.listOfUrlRecords[0]);
       });
     }
+
+
+  @Output() addUrlEvent = new EventEmitter<string>();
+
+  sendMessage() {
+    this.addUrlEvent.emit("add");
+  }
 
 
 }

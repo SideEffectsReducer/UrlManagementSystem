@@ -1,5 +1,7 @@
-Hello I've got you
-<app-list-url></app-list-url>
-<app-add-url></app-add-url>
-<app-view-url></app-view-url>
-<app-edit-url></app-edit-url>
+<div >
+<app-list-url (addUrlEvent)="receiveMessage($event)" *ngIf="currentView == 'list'"></app-list-url>
+<app-add-url  *ngIf="currentView == 'add'"></app-add-url>
+<app-view-url *ngIf="currentView == 'view'"></app-view-url>
+<app-edit-url *ngIf="currentView == 'edit'"></app-edit-url>
+
+</div>

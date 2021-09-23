@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'UrlManagementSystem';
+  public currentView = "list";
+
+  receiveMessage(newView: string) {
+    this.currentView = newView;
+  }
+
+
 }
