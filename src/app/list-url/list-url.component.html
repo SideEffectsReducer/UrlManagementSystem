@@ -84,6 +84,41 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
+              <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Action</th>
+                  <th>Title</th>
+                  <th>Url</th>
+                  <th>Tag</th>
+                  <th>Url location</th>
+                  <th>Active</th>
+                  <th>Type</th>
+                  <th>PDF</th>
+                  <th>PDF stored</th>
+                  <th>URL traced</th>
+                </tr>
+              </thead>
+                  <tbody *ngFor="let urlModel of this.listOfUrlRecords; let i = index">
+                <tr>
+                  <td>{{i}}</td>
+                  <td>
+                    <div class="btn-group"> <a href="#" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-primary">Delete</a> </div>
+                  </td>
+                  <td>{{urlModel.title}}</td>
+                  <td>{{urlModel.url}}</td>
+                  <td>{{urlModel.tagName}}</td>
+                  <td>{{urlModel.urlLocation}}</td>
+                  <td class="text-success">{{urlModel.active}}</td>
+                  <td>{{urlModel.type}}</td>
+                  <td>{{urlModel.pdfLocation}}</td>
+                  <td>{{urlModel.pdfStored}}</td>
+                  <td>{{urlModel.urlTracked}}</td>
+                </tr>
+                  </tbody>
+              </table>
+          <!--
             <table class="table">
               <thead>
                 <tr>
@@ -148,6 +183,7 @@
                 </tr>
               </tbody>
             </table>
+          -->
           </div>
         </div>
       </div>

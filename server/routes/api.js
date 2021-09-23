@@ -18,7 +18,7 @@ router.get('/list', function (req, res) {
     if (err) { res.send(err); }
 
     // • Return all `examples` in JSON format
-    res.json(examples); // return all examples in JSON format
+    res.json(JSON.stringify(examples)); // return all examples in JSON format
   })
 })
 
