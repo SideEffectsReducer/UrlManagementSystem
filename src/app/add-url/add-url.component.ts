@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
-import { HttpClient } from '@angular/common/http';
+import { SaveUrlService } from '../save-url.service';
 
 @Component({
   selector: 'app-add-url',
   templateUrl: './add-url.component.html',
-  styleUrls: ['./add-url.component.less']
+  styleUrls: ['./add-url.component.less'],
+  providers: [SaveUrlService]
 })
 export class AddUrlComponent implements OnInit {
 
   public urlModel = new UrlModel();
   public externalType = true;
-  _url = "http://localhost:3000/api/example/add";
 
 
-  constructor(private _http: HttpClient) { }
+  constructor(private saveUrlService: SaveUrlService) { }
 
   ngOnInit(): void {
     this.urlModel = Object.assign({}, this.urlModel, {
@@ -33,12 +33,9 @@ export class AddUrlComponent implements OnInit {
 
   onSubmit(){
     console.log("onSubmit()");
-    
+
+    this.saveUrlService.save(this.urlModel);
     //  to do service here
-    this._http.post<any>(this._url, this.urlModel).subscribe(
-      data => console.log("success!", data),
-      error => console.log("error!", error)
-    )
 
   }
 
