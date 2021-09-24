@@ -1,6 +1,6 @@
 <div >
 <app-list-url (addUrlEvent)="receiveMessage($event)" *ngIf="currentView == 'list'"></app-list-url>
-<app-add-url  *ngIf="currentView == 'add'"></app-add-url>
+<app-add-url (backUrlEvent)="receiveMessage($event)" *ngIf="currentView == 'add'"></app-add-url>
 <app-view-url *ngIf="currentView == 'view'"></app-view-url>
 <app-edit-url *ngIf="currentView == 'edit'"></app-edit-url>
 

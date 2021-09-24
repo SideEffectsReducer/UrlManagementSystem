@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
 import { SaveUrlService } from '../save-url.service';
 
@@ -44,6 +44,13 @@ export class AddUrlComponent implements OnInit {
     this.externalType = externalType;
     console.log(this.urlModel.type);
 }
+
+  @Output() backUrlEvent = new EventEmitter<string>();
+
+  sendMessage() {
+    this.backUrlEvent.emit("list");
+  }
+
 
 }
 
