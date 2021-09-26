@@ -54,6 +54,14 @@ app.use(cors());
       res.sendFile(path.join(__dirname, '../dist/UrlManagementSystem/index.html'));
     });
 
-app.listen(port, function(){
-    console.log("Server running on localhost:" + port);
-})
+let server = app.listen(port, function(){
+    console.log("UrlManagement Server running on localhost:" + port);
+});
+
+
+function close(){
+  server.close();
+  mongoose.connection.close();
+}
+
+module.exports = {app, close};

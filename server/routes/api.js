@@ -26,7 +26,7 @@ router.get('/list', function (req, res) {
 router.post('/add', cors(), function (req, res) {
   // • Create and save `example` on MongoDB.
   // • We get information form request body
-
+  console.log("post");
   console.log(req.header);
   console.log(req.body);
   console.log("title:", req.body.title);
@@ -46,7 +46,7 @@ router.post('/add', cors(), function (req, res) {
     // • Get and return all the `examples` after you create another
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
-      res.json(examples);
+      res.status(201).json(examples);
     })
   })
 })
