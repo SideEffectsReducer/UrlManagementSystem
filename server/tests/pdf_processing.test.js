@@ -1,10 +1,11 @@
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 
 const {createPdf} = require('../pdf_processing');
 
 beforeAll(done => {
-    fs.rm("./generated")
-  done();
+    fsExtra.emptyDirSync("./generated");
+    done();
 });
 
 afterAll(done => {
@@ -19,8 +20,9 @@ describe('Pdf processing positive', () => {
     const pdfName = "succesfully_generated";
     const path= "./generated";
     const relativePath = path + "/" + pdfName + ".pdf";
-    createPdf(url, pdfName, path);
+    createPdf(url, pdfName, path).then(() =>{
     expect(fs.existsSync(relativePath)).toEqual(true);
+    });
   });
 });
 

@@ -8,13 +8,13 @@ const { url } = require('inspector');
 jest.setTimeout(5000);
 
 beforeAll(done => {
-  done()
+  done();
 })
 
 afterAll(done => {
   // Closing the DB connection allows Jest to exit successfully.
-  close()
-  done()
+  close();
+  done();
 
 })
 
