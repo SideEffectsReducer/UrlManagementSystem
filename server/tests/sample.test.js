@@ -50,11 +50,11 @@ describe('POST Url record', () => {
     const urlRecord = {
         title: "aTitle",
         tagName: "aTagName",
-        url: "aUrl",
+        url: "https://stackoverflow.com/",
         urlLocation: "aUrlLocation",
         active: true,
         type: "aType",
-        pdfLocation: "aPdfLocation",
+        pdfLocation: "./generated/aTitle.pdf",
         pdfStored: true,
         urlTracked: true
     }
@@ -63,6 +63,15 @@ describe('POST Url record', () => {
       .post('/api/example/add')
       .send(urlRecord);
     expect(res.statusCode).toEqual(201);
-    expect(res.body).toEqual(urlRecord);
-  })
-})
+    expect(res.body.title).toEqual(urlRecord.title);
+
+    expect(res.body.tagName).toEqual(urlRecord.tagName);
+    expect(res.body.url).toEqual(urlRecord.url);
+    expect(res.body.urlLocation).toEqual(urlRecord.urlLocation);
+    expect(res.body.active).toEqual(urlRecord.active);
+    expect(res.body.type).toEqual(urlRecord.type);
+    expect(res.body.pdfLocation).toEqual(urlRecord.pdfLocation);
+    expect(res.body.pdfStored).toEqual(urlRecord.pdfStored);
+    expect(res.body.urlTracked).toEqual(urlRecord.urlTracked);
+  });
+});

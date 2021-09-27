@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 var cors = require('cors');
+const {createPdf} = require('../pdf_processing');
 
 const urlModel = require('./models/urlModel');
 
@@ -27,17 +28,16 @@ router.post('/add', cors(), function (req, res) {
   // • Create and save `example` on MongoDB.
   // • We get information form request body
   console.log("post");
-  console.log(req.header);
-  console.log(req.body);
-  console.log("title:", req.body.title);
+  const locationPath = "./generated";
+  createPdf(req.body.url, req.body.title, locationPath);
   urlModel.create({
     title: req.body.title,
     tagName: req.body.tagName,
     url: req.body.url,
     urlLocation: req.body.urlLocation,
     active: req.body.active,
-    type: req.body.active,
-    pdfLocation: req.body.pdfLocation,
+    type: req.body.type,
+    pdfLocation: locationPath + "/" + req.body.title + ".pdf",
     pdfStored: req.body.pdfStored,
     urlTracked: req.body.urlTracked
   }, function (err, examples) {
@@ -46,7 +46,7 @@ router.post('/add', cors(), function (req, res) {
     // • Get and return all the `examples` after you create another
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
-      res.status(201).json(examples.lastItem);
+      res.status(201).json(examples[examples.length -1]);
     })
   })
 })
