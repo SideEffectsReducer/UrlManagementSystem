@@ -3,6 +3,7 @@ const server = require('../server');
 const express = require('express');
 const {app, close} = server;
 const mongoose = require('mongoose');
+const { url } = require('inspector');
 
 jest.setTimeout(5000);
 
@@ -24,8 +25,17 @@ describe('Sample Test', () => {
   })
 })
 
-describe('GET /user', function() {
-  it('responds with json', function(done) {
+
+describe('PDF generation', () => {
+  it('Pdf sucesfully generated', () => {
+    
+    expect(true).toBe(true)
+  })
+})
+
+
+describe('GET Url record', function() {
+  it('Get json containing url records list', function(done) {
     request(app)
       .get('/api/example/list')
       .set('Accept', 'application/json')
@@ -35,11 +45,9 @@ describe('GET /user', function() {
 });
 
 
-describe('Post Endpoints', () => {
-  it('should create a new post', async () => {
-    const res = await request(app)
-      .post('/api/example/add')
-      .send({
+describe('POST Url record', () => {
+  it('Create new url record', async () => {
+    const urlRecord = {
         title: "aTitle",
         tagName: "aTagName",
         url: "aUrl",
@@ -49,7 +57,12 @@ describe('Post Endpoints', () => {
         pdfLocation: "aPdfLocation",
         pdfStored: true,
         urlTracked: true
-      })
-    expect(res.statusCode).toEqual(201)
+    }
+
+    const res = await request(app)
+      .post('/api/example/add')
+      .send(urlRecord);
+    expect(res.statusCode).toEqual(201);
+    expect(res.body).toEqual(urlRecord);
   })
 })

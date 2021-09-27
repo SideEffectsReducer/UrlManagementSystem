@@ -46,7 +46,7 @@ router.post('/add', cors(), function (req, res) {
     // • Get and return all the `examples` after you create another
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
-      res.status(201).json(examples);
+      res.status(201).json(examples.lastItem);
     })
   })
 })
