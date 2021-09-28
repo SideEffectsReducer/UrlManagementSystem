@@ -17,7 +17,8 @@ mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/sample
   }
 });
 
-app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/generated', express.static(path.join(__dirname, 'generated')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());

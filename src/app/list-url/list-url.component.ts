@@ -49,5 +49,7 @@ export class ListUrlComponent implements OnInit {
     this.addUrlEvent.emit("add");
   }
 
+  redirectToPDF(id: number){
 
+  }
 }
