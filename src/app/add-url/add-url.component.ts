@@ -47,7 +47,7 @@ export class AddUrlComponent implements OnInit {
 
   @Output() backUrlEvent = new EventEmitter<string>();
 
-  sendMessage() {
+  notifySwitchToListPage() {
     this.backUrlEvent.emit("list");
   }
 

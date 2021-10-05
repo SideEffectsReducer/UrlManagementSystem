@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-1 offset-md-5" style="">
               <div class="row">
-                <div class="col-md-12"><a class="btn btn-primary" (click)="sendMessage()">Add Url</a></div>
+                <div class="col-md-12"><a class="btn btn-primary" (click)="notifySwitchToAddPage()">Add Url</a></div>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@
                 <tr>
                   <td>{{i}}</td>
                   <td>
-                    <div class="btn-group"> <a href="#" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-primary">Delete</a> </div>
+                    <div class="btn-group"> <a (click)="notifySwitchToViewPage(i)" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-primary">Delete</a> </div>
                   </td>
                   <td>{{urlModel.title}}</td>
                   <td>{{urlModel.url}}</td>

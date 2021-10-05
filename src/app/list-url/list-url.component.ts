@@ -44,10 +44,20 @@ export class ListUrlComponent implements OnInit {
 
 
   @Output() addUrlEvent = new EventEmitter<string>();
+  @Output() viewUrlEvent = new EventEmitter<Object>();
 
-  sendMessage() {
+  notifySwitchToAddPage() {
     this.addUrlEvent.emit("add");
   }
+
+    notifySwitchToViewPage(id: number) {
+      console.log("emit view", id);
+    this.viewUrlEvent.emit({'view': id});
+  }
+
+
+
+
 
   redirectToPDF(id: number){
 
