@@ -1,22 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { SaveUrlService } from '../save-url.service';
 import { AddUrlComponent } from './add-url.component';
+
+class MockSaveUrlService{
+  save(){
+    console.log("Mocked save method of SaveUrlSevice");
+  }
+}
 
 describe('AddUrlComponent', () => {
   let component: AddUrlComponent;
+  let saveUrlService: SaveUrlService;
   let fixture: ComponentFixture<AddUrlComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ AddUrlComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({
+    // provide the component-under-test and dependent service
+    providers: [
+      AddUrlComponent,
+      { provide: SaveUrlService, useClass: MockSaveUrlService }
+    ]
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AddUrlComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  // inject both the component and the dependent service.
+  component = TestBed.inject(AddUrlComponent);
+  saveUrlService = TestBed.inject(SaveUrlService);
   });
 
   it('should create', () => {
