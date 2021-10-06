@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+var mongodb = require('mongodb');
 var cors = require('cors');
 const {createPdf} = require('../pdf_processing');
 
@@ -20,8 +21,40 @@ router.get('/list', function (req, res) {
 
     // • Return all `examples` in JSON format
     res.json(JSON.stringify(examples)); // return all examples in JSON format
-  })
-})
+  });
+});
+
+// • Declaring POST method
+router.delete('/delete', cors(), function (req, res) {
+  console.log(req.body);
+ let id  =  req.body.id;
+ console.log("Express is deleting id: ", id);
+
+  urlModel.find(function (err, examples) {
+    // • If there is an error, send the error. nothing after res.send(err)
+    // will execute
+    if (err) { res.send(err); }
+
+    // • Return all `examples` in JSON format
+    let data = JSON.stringify(examples); // return all examples in JSON format
+    let uniqueId = JSON.parse(data)[id]._id;
+
+    console.log("uniqueId: ", uniqueId);
+    urlModel.remove({ _id: uniqueId}, function(err) {
+    if (!err) {
+            console.log('sucess');
+    }
+    else {
+            console.log('error');
+    }
+  });
+
+  });
+
+ 
+ res.sendStatus(200);
+
+});
 
 // • Declaring POST method
 router.post('/add', cors(), function (req, res) {
@@ -47,9 +80,9 @@ router.post('/add', cors(), function (req, res) {
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
       res.status(201).json(examples[examples.length -1]);
-    })
-  })
-})
+    });
+  });
+});
 
 
 module.exports = router;

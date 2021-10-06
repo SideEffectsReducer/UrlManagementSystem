@@ -12,6 +12,7 @@ export class ListUrlComponent implements OnInit {
   public urlModel = new UrlModel();
   public listOfUrlRecords = Array<UrlModel>();
   private _url = "http://localhost:3000/api/example/list";
+  private _urlDelete = "http://localhost:3000/api/example/delete";
 
   constructor(private _http: HttpClient) { }
 
@@ -42,6 +43,20 @@ export class ListUrlComponent implements OnInit {
       });
     }
 
+deleteRecord(idToRemove: number){
+    const body = {id: idToRemove};
+    if (confirm(`Are you sure you want to delete record #${idToRemove} ?`)) {
+      console.log('User allowed');
+    
+        this._http.delete<any>(this._urlDelete, {body: body}).subscribe(data => {
+          
+        });
+
+    } 
+    else {
+        console.log('User not allowed');
+    }
+}
 
   @Output() addUrlEvent = new EventEmitter<string>();
   @Output() viewUrlEvent = new EventEmitter<Object>();
