@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-url',
@@ -9,10 +10,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ViewUrlComponent implements OnInit {
 
-  public listOfUrlRecords = Array<UrlModel>();
   public urlModel = new UrlModel();
-  private _url = "http://localhost:3000/api/example/list"
   @Input() viewId = 0;
+  @Output() backUrlEvent = new EventEmitter<string>();
+
+  private listOfUrlRecords = Array<UrlModel>();
+  private _url = "http://localhost:3000/api/example/list"
 
   constructor(private _http: HttpClient){ }
 
@@ -29,30 +32,29 @@ export class ViewUrlComponent implements OnInit {
     urlTracked: true
     });
 
-    this.updateTable();
   }
 
-updateTable(){
-    this._http.get<any>(this._url).subscribe(data => {
-      console.log("start");
-      console.log(data);
+public notifySwitchToListPage() {
+    this.backUrlEvent.emit("list");
+  }
+
+public getUrlList(): Observable<string>{
+  return this._http.get<string>(this._url);
+}
+
+public updateTable(){
+    this.getUrlList().subscribe(data => {
       this.listOfUrlRecords = JSON.parse(data);
-      console.log(this.urlModel);
-      console.log("First record: ", this.listOfUrlRecords[0]);
       this.updateRecord(this.listOfUrlRecords[this.viewId]);
     });
   }
 
-updateRecord(record: UrlModel){
+public updateRecord(record: UrlModel){
   this.urlModel = record;
 }
 
 
-  @Output() backUrlEvent = new EventEmitter<string>();
 
-  notifySwitchToListPage() {
-    this.backUrlEvent.emit("list");
-  }
 
 
 }
