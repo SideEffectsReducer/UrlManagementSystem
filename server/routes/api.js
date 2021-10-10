@@ -24,6 +24,23 @@ router.get('/list', function (req, res) {
   });
 });
 
+// • Declaring GET method
+router.get('/one:recordNumber', function (req, res) {
+  console.log("get");
+  // • Use mongoose to get all `examples` in our database
+  // • How we got this find() method you'll ask? Well, that comes from our
+  // declared mongoose model.
+  urlModel.find(function (err, examples) {
+    // • If there is an error, send the error. nothing after res.send(err)
+    // will execute
+    if (err) { res.send(err); }
+
+    // • Return all `examples` in JSON format
+    res.json(JSON.stringify(examples[req.params.recordNumber])); // return all examples in JSON format
+  });
+});
+
+
 // • Declaring POST method
 router.delete('/delete', cors(), function (req, res) {
   console.log(req.body);

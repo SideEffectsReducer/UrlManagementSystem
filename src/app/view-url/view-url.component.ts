@@ -1,60 +1,56 @@
 import { Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { GetUrlService } from '../get-url.service';
 
 @Component({
   selector: 'app-view-url',
   templateUrl: './view-url.component.html',
-  styleUrls: ['./view-url.component.less']
+  styleUrls: ['./view-url.component.less'],
+  providers: [GetUrlService]
 })
 export class ViewUrlComponent implements OnInit {
 
   public urlModel = new UrlModel();
+  public _urlRecord = new UrlModel();
   @Input() viewId = 0;
   @Output() backUrlEvent = new EventEmitter<string>();
 
-  private listOfUrlRecords = Array<UrlModel>();
-  private _url = "http://localhost:3000/api/example/list"
-
-  constructor(private _http: HttpClient){ }
+  constructor(private _getUrlService: GetUrlService){ 
+    this.urlModel = Object.assign({}, this.urlModel, {
+    title: "",
+    tagName: "",
+    url: "",
+    urlLocation: "",
+    active: false,
+    type: "",
+    pdfLocation: "",
+    pdfStored: false,
+    urlTracked: false
+    });
+  }
 
   ngOnInit(): void {
-    this.urlModel = Object.assign({}, this.urlModel, {
-    title: "aTitle",
-    tagName: "aTagName",
-    url: "aUrl",
-    urlLocation: "aUrlLocation",
-    active: true,
-    type: "aType",
-    pdfLocation: "aPdfLocation",
-    pdfStored: true,
-    urlTracked: true
-    });
-
+    this.updateTable();
   }
 
 public notifySwitchToListPage() {
     this.backUrlEvent.emit("list");
-  }
-
-public getUrlList(): Observable<string>{
-  return this._http.get<string>(this._url);
 }
 
-public updateTable(){
-    this.getUrlList().subscribe(data => {
-      this.listOfUrlRecords = JSON.parse(data);
-      this.updateRecord(this.listOfUrlRecords[this.viewId]);
+private updateTable(){
+    this._getUrlService.getOne(this.viewId).subscribe((data) => {
+      let urlRecord : UrlModel = JSON.parse(data); 
+      this.urlRecord = urlRecord;
     });
-  }
-
-public updateRecord(record: UrlModel){
-  this.urlModel = record;
 }
 
+private set urlRecord(record: UrlModel){
+    this.urlModel = record;
+}
 
-
+private get urlRecord(){
+  return this.urlModel;
+}
 
 
 }

@@ -1,118 +1,22 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ViewUrlComponent } from './view-url.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UrlModel } from '../shared/models/url.model';
 import { FormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { GetUrlService } from '../get-url.service';
+import { HttpClientModule } from '@angular/common/http';
+import { getNumberOfCurrencyDigits } from '@angular/common';
+import { Observable, of } from 'rxjs';
 
+class MockGetUrlService {
 
+    getAll() : Observable<string> {
 
-describe('ViewUrlComponent', () => {
-  let component: ViewUrlComponent;
-  let controller: HttpTestingController;
-  let fixture: ComponentFixture<ViewUrlComponent>;
+    return of(this.getMockData());
+  }
 
-function createComponent(){
-
-    TestBed.configureTestingModule({
-      // provide the component-under-test and dependent service
-      imports: [HttpClientTestingModule, FormsModule],
-      providers: [ViewUrlComponent]
-    });
-
-  fixture = TestBed.createComponent(ViewUrlComponent);
-  component = fixture.componentInstance;
-  controller = TestBed.inject(HttpTestingController)
-}
-
-  beforeEach(() => {
-
-    createComponent();
-  });
-
-
-  it('should initalize urlModel list with default values', () => {
-    let emptyUrlObject = new UrlModel();
-    expect(component.urlModel).toEqual(emptyUrlObject);
-
-    component.ngOnInit();
-
-    let defaultUrlObject = `
-  {
-      "title": "aTitle",
-      "tagName": "aTagName",
-      "url": "aUrl",
-      "urlLocation": "aUrlLocation",
-      "active": true,
-      "type": "aType",
-      "pdfLocation": "aPdfLocation",
-      "pdfStored": true,
-      "urlTracked": true 
-  }`;
-    expect(component.urlModel).toEqual(JSON.parse(defaultUrlObject));
-  });
-
-
-  it('should update coresponding fields in html view', () => {
-  //arrange
-    let defaultUrlObject = `
-  {
-      "title": "aTitle",
-      "tagName": "aTagName",
-      "url": "aUrl",
-      "urlLocation": "aUrlLocation",
-      "active": true,
-      "type": "aType",
-      "pdfLocation": "aPdfLocation",
-      "pdfStored": true,
-      "urlTracked": true 
-  }`;
-  let urlObject= JSON.parse(defaultUrlObject);
-
-  //act
-  component.updateRecord(urlObject);
-  fixture.detectChanges();
-
-  //assert
-  let root = fixture.debugElement.nativeElement;
-  let input : HTMLInputElement = root.querySelector("#title");
-  expect(input.value).toEqual("aTitle");
-  input = root.querySelector("#tagName");
-  expect(input.value).toEqual("aTagName");
-  input = root.querySelector("#url");
-  expect(input.value).toEqual("aUrl")
-
-  input = root.querySelector("#urlLocation");
-  expect(input.value).toEqual("aUrlLocation")
-
-  input = root.querySelector("#pdfStored");
-  expect(input.value).toEqual("true");
-
-  input = root.querySelector("#urlTracked");
-  expect(input.value).toEqual("true");
-  });
-
-  it('should emit list event upon back button click', () => {
-    //arange
-    component.backUrlEvent.pipe(first()).subscribe((aString: string) => 
-    expect(aString).toBe("list"));
-
-    //act
-    component.notifySwitchToListPage();
-
-    //assert
-
-  });
-
-
-  it('should recive correct viewID as an input',  (done) => {
-    //assert
-    component.viewId = 1;
-    component.updateTable(); 
-    //Get a mock request for the URL
-    let mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
-    //Supply mock data
-    mockRequest.flush(JSON.stringify(
+private getMockData(): string{
+    return JSON.stringify(
       [{
         "title": "Mock title",
         "tagName": "Mock tag",
@@ -136,10 +40,132 @@ function createComponent(){
         "urlTracked": false
       }
       ]
-    ));
+    );
+}
+
+  getOne(recordNum: number): Observable<string>{
+    let listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
+    return of(JSON.stringify(listOfUrlRecords[recordNum]));
+  }
+
+
+}
+
+
+describe('ViewUrlComponent', () => {
+  let component: ViewUrlComponent;
+  let fixture: ComponentFixture<ViewUrlComponent>;
+  let service: GetUrlService;
+
+function createComponent(){
+
+    TestBed.configureTestingModule({
+      // provide the component-under-test and dependent service
+      imports: [HttpClientModule],
+      providers: [
+      ViewUrlComponent, 
+      { provide: GetUrlService, useClass: MockGetUrlService }
+    ]
+    });
+
+
+  // component = fixture.componentInstance;
+  component = TestBed.inject(ViewUrlComponent);
+  service = TestBed.inject(GetUrlService);
+  fixture = TestBed.createComponent(ViewUrlComponent);
+  // controller = TestBed.inject(HttpTestingController)
+}
+
+  beforeEach(() => {
+
+    createComponent();
+  });
+
+  
+
+  it('should initalize urlModel list with default values', () => {
+    // arrange
+    let defaultUrlObject = `
+  {
+      "title": "",
+      "tagName": "",
+      "url": "",
+      "urlLocation": "",
+      "active": false,
+      "type": "",
+      "pdfLocation": "",
+      "pdfStored": false,
+      "urlTracked": false 
+  }`;
+
+    // act
+
+    // assert
+    expect(component.urlModel).toEqual(JSON.parse(defaultUrlObject));
+  });
+
+
+  it('should update coresponding fields in html view', () => {
+  //arrange
+    let expectedUrlObject = 
+      {
+        "title": "Mock title",
+        "tagName": "Mock tag",
+        "url": "Mock url",
+        "urlLocation": "Mock url location",
+        "active": true,
+        "type": "Mock type",
+        "pdfLocation": "Mock pdf location",
+        "pdfStored": true,
+        "urlTracked": true
+      };
+      
+
+  //act
+  component.ngOnInit();
+  setTimeout(()=> checkHtml(), 1000);
+
+  //assert
+  function checkHtml(){
+
+  fixture.detectChanges();
+  let root = fixture.debugElement.nativeElement;
+  let input : HTMLInputElement = root.querySelector("#title");
+  expect(input.value).toEqual(expectedUrlObject.title);
+  input = root.querySelector("#tagName");
+  expect(input.value).toEqual(expectedUrlObject.tagName);
+  input = root.querySelector("#url");
+  expect(input.value).toEqual(expectedUrlObject.url)
+
+  input = root.querySelector("#urlLocation");
+  expect(input.value).toEqual(expectedUrlObject.urlLocation)
+
+  input = root.querySelector("#pdfStored");
+  expect(input.value).toEqual(expectedUrlObject.pdfStored.toString());
+
+  input = root.querySelector("#urlTracked");
+  expect(input.value).toEqual(expectedUrlObject.urlTracked.toString());
+  }
+  });
+
+  it('should emit list event upon back button click', () => {
+    //arange
+    component.backUrlEvent.pipe(first()).subscribe((aString: string) => 
+    expect(aString).toBe("list"));
 
     //act
-    done();
+    component.notifySwitchToListPage();
+
+    //assert
+
+  });
+
+
+  it('should recive correct viewID as an input',  () => {
+    //assert
+    component.viewId = 1;
+    //act
+    component.ngOnInit(); 
 
     //assert
     expect(component.urlModel.title).toBe("Mock title2");
@@ -158,43 +184,6 @@ function createComponent(){
   it('should have', () => {
     expect(component).toBeTruthy();
   });
-
-
-  it("should send http get request and recieve list of urls", (done) => {
-    component.getUrlList().subscribe((data) => {
-      let listOfUrls: Array<UrlModel> = JSON.parse(data);
-
-      expect(listOfUrls[0].title).toBe("Mock title");
-      expect(listOfUrls[0].tagName).toBe("Mock tag");
-      expect(listOfUrls[0].url).toBe("Mock url");
-
-      expect(listOfUrls[0].urlLocation).toBe("Mock url location");
-      expect(listOfUrls[0].active).toBe(true);
-      expect(listOfUrls[0].type).toBe("Mock type");
-      expect(listOfUrls[0].pdfLocation).toBe("Mock pdf location");
-      expect(listOfUrls[0].pdfStored).toBe(true);
-      expect(listOfUrls[0].urlTracked).toBe(true);
-      done();
-    });
-    //Get a mock request for the URL
-    let mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
-    //Supply mock data
-    mockRequest.flush(JSON.stringify(
-      [{
-        "title": "Mock title",
-        "tagName": "Mock tag",
-        "url": "Mock url",
-        "urlLocation": "Mock url location",
-        "active": true,
-        "type": "Mock type",
-        "pdfLocation": "Mock pdf location",
-        "pdfStored": true,
-        "urlTracked": true
-      },
-      ]
-    ));
-  });
-
 
 
 

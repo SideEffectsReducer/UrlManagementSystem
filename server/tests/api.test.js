@@ -42,6 +42,14 @@ describe('GET Url record', function() {
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
+
+  it('Get json containing one url record', function(done) {
+    request(app)
+      .get('/api/example/one/0')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
 });
 
 
