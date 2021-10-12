@@ -26,57 +26,74 @@ describe('GetUrlService', () => {
   });
 
 
-  // it("/list endpoint data should be recieved as a list of url records", (done) => {
-  //     //arrange
-  //   //Get a mock request for the URL
-  //   let mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
-  //   //Supply mock data
-  //   mockRequest.flush(JSON.stringify(
-  //     [{
-  //       "title": "Mock title",
-  //       "tagName": "Mock tag",
-  //       "url": "Mock url",
-  //       "urlLocation": "Mock url location",
-  //       "active": true,
-  //       "type": "Mock type",
-  //       "pdfLocation": "Mock pdf location",
-  //       "pdfStored": true,
-  //       "urlTracked": true
-  //     },
-  //     ]
-  //   ));
+  it("/list endpoint data should be recieved as a list of url records", async () => {
+      //arrange
+    const expectedUrlObject: UrlModel =
+    {
+      'title': 'Mock title',
+      'tagName': 'Mock tag',
+      'url': 'Mock url',
+      'urlLocation': 'Mock url location',
+      'active': true,
+      'type': 'Mock type',
+      'pdfLocation': 'Mock pdf location',
+      'pdfStored': true,
+      'urlTracked': true,
+    };
 
-  //     //act
-  //     let listOfUrls: Array<UrlModel> = service.getAll();
+    //act
+    const promiseResult = service.getAll().toPromise();
 
-
-  //     //assert
-  //     expect(listOfUrls[0].title).toBe("Mock title");
-
-  // });
-
-
-  it("should send http get request and recieve list of urls", (done) => {
-    service.getObservable().subscribe((data) => {
-      const listOfUrls: Array<UrlModel> = JSON.parse(data);
-
-      expect(listOfUrls[0].title).toBe('Mock title');
-      expect(listOfUrls[0].tagName).toBe('Mock tag');
-      expect(listOfUrls[0].url).toBe('Mock url');
-
-      expect(listOfUrls[0].urlLocation).toBe('Mock url location');
-      expect(listOfUrls[0].active).toBe(true);
-      expect(listOfUrls[0].type).toBe('Mock type');
-      expect(listOfUrls[0].pdfLocation).toBe('Mock pdf location');
-      expect(listOfUrls[0].pdfStored).toBe(true);
-      expect(listOfUrls[0].urlTracked).toBe(true);
-      done();
-    });
-    // Get a mock request for the URL
-    const mockRequest = controller.expectOne('http://localhost:3000/api/example/list');
-    // Supply mock data
+    //assert
+    //Get a mock request for the URL
+    const mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
+    //Supply mock data
     mockRequest.flush(JSON.stringify(
       [{
+        "title": "Mock title",
+        "tagName": "Mock tag",
+        "url": "Mock url",
+        "urlLocation": "Mock url location",
+        "active": true,
+        "type": "Mock type",
+        "pdfLocation": "Mock pdf location",
+        "pdfStored": true,
+        "urlTracked": true
+      },
+      ]
+    )); 
+
+    const data = await promiseResult;
+    const listOfUrls: Array<UrlModel> = JSON.parse(data);
+    expect(listOfUrls[0]).toEqual(expectedUrlObject);
+  });
+
+
+  it("should send http get request and recieve one url record", async () => {
+    // arrange
+    const expectedUrlObject: UrlModel =
+    {
+      'title': 'Mock title',
+      'tagName': 'Mock tag',
+      'url': 'Mock url',
+      'urlLocation': 'Mock url location',
+      'active': true,
+      'type': 'Mock type',
+      'pdfLocation': 'Mock pdf location',
+      'pdfStored': true,
+      'urlTracked': true,
+    };
+    const recordNum = 0;
+
+    // act
+    const promiseResult = service.getOne(recordNum).toPromise();
+
+    // assert
+    // Get a mock request for the URL
+    const mockRequest = controller.expectOne('http://localhost:3000/api/example/one0');
+    // Supply mock data
+    mockRequest.flush(JSON.stringify(
+      {
           'title': 'Mock title',
           'tagName': 'Mock tag',
           'url': 'Mock url',
@@ -86,8 +103,10 @@ describe('GetUrlService', () => {
           'pdfLocation': 'Mock pdf location',
           'pdfStored': true,
           'urlTracked': true,
-        },
-        ],
+      }
     ));
+    const data = await promiseResult;
+    const urlRecord: UrlModel = JSON.parse(data);
+    expect(urlRecord).toEqual(expectedUrlObject);
   });
 });
