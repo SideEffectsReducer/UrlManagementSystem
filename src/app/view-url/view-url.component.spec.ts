@@ -45,30 +45,25 @@ class MockGetUrlService {
   }
 }
 
+function createComponent() {
+  TestBed.configureTestingModule({
+    // provide the component-under-test and dependent service
+    imports: [HttpClientModule],
+    providers: [
+      ViewUrlComponent,
+      {provide: GetUrlService, useClass: MockGetUrlService}
+    ],
+  });
+}
 
 describe('ViewUrlComponent', () => {
   let component: ViewUrlComponent;
   let fixture: ComponentFixture<ViewUrlComponent>;
-  // let service: GetUrlService;
-
-  function createComponent() {
-    TestBed.configureTestingModule({
-      // provide the component-under-test and dependent service
-      imports: [HttpClientModule],
-      providers: [
-        ViewUrlComponent,
-        {provide: GetUrlService, useClass: MockGetUrlService}
-      ],
-    });
-
-
-    component = TestBed.inject(ViewUrlComponent);
-    // service = TestBed.inject(GetUrlService);
-    fixture = TestBed.createComponent(ViewUrlComponent);
-  }
 
   beforeEach(() => {
     createComponent();
+    component = TestBed.inject(ViewUrlComponent);
+    fixture = TestBed.createComponent(ViewUrlComponent);
   });
 
 
@@ -88,9 +83,10 @@ describe('ViewUrlComponent', () => {
   }`;
 
     // act
+    // nothing here
 
     // assert
-    expect(component.urlModel).toEqual(JSON.parse(defaultUrlObject));
+    expect(component.urlRecord).toEqual(JSON.parse(defaultUrlObject));
   });
 
 
@@ -102,13 +98,12 @@ describe('ViewUrlComponent', () => {
       'tagName': 'Mock tag',
       'url': 'Mock url',
       'urlLocation': 'Mock url location',
-      'active': true,
+      'active': 'true',
       'type': 'Mock type',
       'pdfLocation': 'Mock pdf location',
-      'pdfStored': true,
-      'urlTracked': true,
+      'pdfStored': 'true',
+      'urlTracked': 'true',
     };
-
 
     // act
     component.ngOnInit();
@@ -117,57 +112,56 @@ describe('ViewUrlComponent', () => {
     // assert
     function checkHtml() {
       fixture.detectChanges();
+      verifyHtmlNode('#title', expectedUrlObject.title);
+      verifyHtmlNode('#tagName', expectedUrlObject.tagName);
+      verifyHtmlNode('#url', expectedUrlObject.url);
+      verifyHtmlNode('#urlLocation', expectedUrlObject.urlLocation);
+      verifyHtmlNode('#pdfStored', expectedUrlObject.pdfStored);
+      verifyHtmlNode('#urlTracked', expectedUrlObject.urlTracked);
+    }
+
+    function verifyHtmlNode(htmlNodeId: string, expectedValue: any){
       const root = fixture.debugElement.nativeElement;
-      let input: HTMLInputElement = root.querySelector('#title');
-      expect(input.value).toEqual(expectedUrlObject.title);
-      input = root.querySelector('#tagName');
-      expect(input.value).toEqual(expectedUrlObject.tagName);
-      input = root.querySelector('#url');
-      expect(input.value).toEqual(expectedUrlObject.url);
-
-      input = root.querySelector('#urlLocation');
-      expect(input.value).toEqual(expectedUrlObject.urlLocation);
-
-      input = root.querySelector('#pdfStored');
-      expect(input.value).toEqual(expectedUrlObject.pdfStored.toString());
-
-      input = root.querySelector('#urlTracked');
-      expect(input.value).toEqual(expectedUrlObject.urlTracked.toString());
+      let input: HTMLInputElement = root.querySelector(htmlNodeId);
+      expect(input.value).toEqual(expectedValue);
     }
   });
 
   it('should emit list event upon back button click', () => {
     // arange
-    component.backUrlEvent.pipe(first()).subscribe((aString: string) =>
-      expect(aString).toBe('list'));
+    component.backUrlEvent.pipe(first()).subscribe((eventValue: string) =>
+      isListEventTriggered(eventValue));
 
     // act
     component.notifySwitchToListPage();
 
     // assert
+    function isListEventTriggered(eventValue: string){
+      expect(eventValue).toEqual('list');
+    }
   });
 
 
   it('should recive correct viewID as an input', () => {
-    // assert
+    // arrange
     component.viewId = 1;
+        const expectedUrlObject =
+    {
+      'title': 'Mock title2',
+      'tagName': 'Mock tag2',
+      'url': 'Mock url2',
+      'urlLocation': 'Mock url location2',
+      'active': false,
+      'type': 'Mock type2',
+      'pdfLocation': 'Mock pdf location2',
+      'pdfStored': false,
+      'urlTracked': false,
+    };
+
     // act
     component.ngOnInit();
 
     // assert
-    expect(component.urlModel.title).toBe('Mock title2');
-    expect(component.urlModel.tagName).toBe('Mock tag2');
-    expect(component.urlModel.url).toBe('Mock url2');
-
-    expect(component.urlModel.urlLocation).toBe('Mock url location2');
-    expect(component.urlModel.active).toBe(false);
-    expect(component.urlModel.type).toBe('Mock type2');
-    expect(component.urlModel.pdfLocation).toBe('Mock pdf location2');
-    expect(component.urlModel.pdfStored).toBe(false);
-    expect(component.urlModel.urlTracked).toBe(false);
-  });
-
-  it('should have', () => {
-    expect(component).toBeTruthy();
+    expect(component.urlRecord).toEqual(expectedUrlObject);
   });
 });

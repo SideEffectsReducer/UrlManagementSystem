@@ -9,13 +9,14 @@ import {GetUrlService} from '../get-url.service';
   providers: [GetUrlService],
 })
 export class ViewUrlComponent implements OnInit {
-  public urlModel = new UrlModel();
-  public _urlRecord = new UrlModel();
-  @Input() viewId = 0;
-  @Output() backUrlEvent = new EventEmitter<string>();
+  @Input() viewId: number;
+  @Output() backUrlEvent: EventEmitter<string>;
+  private _urlRecord: UrlModel;
 
   constructor(private _getUrlService: GetUrlService) {
-    this.urlModel = Object.assign({}, this.urlModel, {
+    this.viewId = 0;
+    this.backUrlEvent = new EventEmitter<string>();
+    this._urlRecord = Object.assign({}, new UrlModel(), {
       title: '',
       tagName: '',
       url: '',
@@ -29,24 +30,24 @@ export class ViewUrlComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateTable();
+    this.fillViewWithRecievedData();
   }
 
   public notifySwitchToListPage(): void {
     this.backUrlEvent.emit('list');
   }
 
-  private updateTable() {
+  public set urlRecord(record: UrlModel) {
+    this._urlRecord = record;
+  }
+
+  public get urlRecord(): UrlModel {
+    return this._urlRecord;
+  }
+
+  private fillViewWithRecievedData() {
     this._getUrlService.getOne(this.viewId).subscribe((data) => {
       this.urlRecord = JSON.parse(data);
     });
-  }
-
-  private set urlRecord(record: UrlModel) {
-    this.urlModel = record;
-  }
-
-  private get urlRecord(): UrlModel {
-    return this.urlModel;
   }
 }

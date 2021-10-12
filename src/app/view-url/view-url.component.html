@@ -48,7 +48,7 @@
                       <h6 class="">URL type</h6>
                     </div>
                   </div>
-                  <div class="btn-group">  <a [ngClass]="urlModel.type === 'external' ? 'btn-primary' : 'btn-light'"  class="btn">External URL</a> </div><a [ngClass]="urlModel.type === 'external' ? 'btn-light' : 'btn-primary' "  class="btn">Upload</a>
+                  <div class="btn-group">  <a [ngClass]="UrlRecord.type === 'external' ? 'btn-primary' : 'btn-light'"  class="btn">External URL</a> </div><a [ngClass]="UrlRecord.type === 'external' ? 'btn-light' : 'btn-primary' "  class="btn">Upload</a>
                 </div>
               </div>
             </div>
@@ -56,27 +56,27 @@
           <form class="needs-validation" novalidate="">
             <div class="row">
               <div class="col-md-6 mb-3"> <label for="firstName">Title</label>
-                <input type="text" [(ngModel)]="urlModel.title" name="title" class="form-control" id="title" placeholder="" value={{urlModel.title}} required="">
+                <input type="text" [(ngModel)]="UrlRecord.title" name="title" class="form-control" id="title" placeholder="" value={{UrlRecord.title}} required="">
                 <div class="invalid-feedback" style=""> Valid first name is required. </div>
               </div>
               <div class="col-md-6 mb-3"> <label for="lastName">Tag name</label>
-                <input type="text" [(ngModel)]="urlModel.tagName" name="tagName" class="form-control" id="tagName" placeholder="" value={{urlModel.tagName}} required="">
+                <input type="text" [(ngModel)]="UrlRecord.tagName" name="tagName" class="form-control" id="tagName" placeholder="" value={{UrlRecord.tagName}} required="">
                 <div class="invalid-feedback"> Valid last name is required. </div>
               </div>
             </div>
             <div class="mb-3"> <label for="email">URL<br></label>
-              <input type="email" [(ngModel)]="urlModel.url" name="url" class="form-control" id="url" value={{urlModel.url}}>
+              <input type="email" [(ngModel)]="UrlRecord.url" name="url" class="form-control" id="url" value={{UrlRecord.url}}>
               <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
             </div>
             <div class="mb-3"> <label for="address">URL location</label>
-              <input type="text" [(ngModel)]="urlModel.urlLocation" name="urlLocation" class="form-control" id="urlLocation" required="" value={{urlModel.urlLocation}}>
+              <input type="text" [(ngModel)]="UrlRecord.urlLocation" name="urlLocation" class="form-control" id="urlLocation" required="" value={{UrlRecord.urlLocation}}>
               <div class="invalid-feedback"> Please enter your shipping address. </div>
             </div>
             <hr class="mb-4">
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" [(ngModel)]="urlModel.pdfStored" name="pdfStored" class="custom-control-input" id="pdfStored" value={{urlModel.pdfStored}}> <label class="custom-control-label" for="same-address">Would you like to store a pdf screenshot of that page&nbsp;</label> </div>
+              <input type="checkbox" [(ngModel)]="UrlRecord.pdfStored" name="pdfStored" class="custom-control-input" id="pdfStored" value={{UrlRecord.pdfStored}}> <label class="custom-control-label" for="same-address">Would you like to store a pdf screenshot of that page&nbsp;</label> </div>
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" [(ngModel)]="urlModel.urlTracked" name="urlTracked" class="custom-control-input" id="urlTracked" value={{urlModel.urlTracked}}> <label class="custom-control-label" for="save-info" contenteditable="true">Trace url link status</label> </div>
+              <input type="checkbox" [(ngModel)]="UrlRecord.urlTracked" name="urlTracked" class="custom-control-input" id="urlTracked" value={{UrlRecord.urlTracked}}> <label class="custom-control-label" for="save-info" contenteditable="true">Trace url link status</label> </div>
             <hr class="mb-4">
             <hr class="mb-4">
           </form>
