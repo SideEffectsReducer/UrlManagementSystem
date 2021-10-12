@@ -62,7 +62,7 @@ describe('GetUrlService', () => {
 
   it("should send http get request and recieve list of urls", (done) => {
     service.getObservable().subscribe((data) => {
-      let listOfUrls: Array<UrlModel> = JSON.parse(data);
+      const listOfUrls: Array<UrlModel> = JSON.parse(data);
 
       expect(listOfUrls[0].title).toBe("Mock title");
       expect(listOfUrls[0].tagName).toBe("Mock tag");
@@ -77,7 +77,7 @@ describe('GetUrlService', () => {
       done();
     });
     //Get a mock request for the URL
-    let mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
+    const mockRequest = controller.expectOne("http://localhost:3000/api/example/list");
     //Supply mock data
     mockRequest.flush(JSON.stringify(
       [{

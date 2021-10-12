@@ -1,11 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed} from '@angular/core/testing';
 import { ViewUrlComponent } from './view-url.component';
 import { UrlModel } from '../shared/models/url.model';
-import { FormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { GetUrlService } from '../get-url.service';
 import { HttpClientModule } from '@angular/common/http';
-import { getNumberOfCurrencyDigits } from '@angular/common';
 import { Observable, of } from 'rxjs';
 
 class MockGetUrlService {
@@ -44,7 +42,7 @@ private getMockData(): string{
 }
 
   getOne(recordNum: number): Observable<string>{
-    let listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
+    const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
     return of(JSON.stringify(listOfUrlRecords[recordNum]));
   }
 
@@ -55,7 +53,7 @@ private getMockData(): string{
 describe('ViewUrlComponent', () => {
   let component: ViewUrlComponent;
   let fixture: ComponentFixture<ViewUrlComponent>;
-  let service: GetUrlService;
+  // let service: GetUrlService;
 
 function createComponent(){
 
@@ -69,11 +67,9 @@ function createComponent(){
     });
 
 
-  // component = fixture.componentInstance;
   component = TestBed.inject(ViewUrlComponent);
-  service = TestBed.inject(GetUrlService);
+  // service = TestBed.inject(GetUrlService);
   fixture = TestBed.createComponent(ViewUrlComponent);
-  // controller = TestBed.inject(HttpTestingController)
 }
 
   beforeEach(() => {
@@ -85,7 +81,7 @@ function createComponent(){
 
   it('should initalize urlModel list with default values', () => {
     // arrange
-    let defaultUrlObject = `
+  const defaultUrlObject = `
   {
       "title": "",
       "tagName": "",
@@ -107,7 +103,7 @@ function createComponent(){
 
   it('should update coresponding fields in html view', () => {
   //arrange
-    let expectedUrlObject = 
+    const expectedUrlObject = 
       {
         "title": "Mock title",
         "tagName": "Mock tag",
@@ -129,7 +125,7 @@ function createComponent(){
   function checkHtml(){
 
   fixture.detectChanges();
-  let root = fixture.debugElement.nativeElement;
+  const root = fixture.debugElement.nativeElement;
   let input : HTMLInputElement = root.querySelector("#title");
   expect(input.value).toEqual(expectedUrlObject.title);
   input = root.querySelector("#tagName");

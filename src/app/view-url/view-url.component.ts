@@ -33,14 +33,13 @@ export class ViewUrlComponent implements OnInit {
     this.updateTable();
   }
 
-public notifySwitchToListPage() {
+public notifySwitchToListPage(): void {
     this.backUrlEvent.emit("list");
 }
 
 private updateTable(){
     this._getUrlService.getOne(this.viewId).subscribe((data) => {
-      let urlRecord : UrlModel = JSON.parse(data); 
-      this.urlRecord = urlRecord;
+      this.urlRecord = JSON.parse(data); 
     });
 }
 
@@ -48,7 +47,7 @@ private set urlRecord(record: UrlModel){
     this.urlModel = record;
 }
 
-private get urlRecord(){
+private get urlRecord(): UrlModel{
   return this.urlModel;
 }
 

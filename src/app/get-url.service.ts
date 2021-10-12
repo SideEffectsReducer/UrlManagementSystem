@@ -13,18 +13,18 @@ export class GetUrlService {
   constructor(private _http: HttpClient) { }
 
   getAll() : Observable<UrlModel[]> {
-      let endPoint = this._url + "/list";
+      const endPoint = this._url + "/list";
       return this._http.get<UrlModel[]>(endPoint);
   }
 
   getObservable(): Observable<string>{
-    let endPoint = this._url + "/list";
+    const endPoint = this._url + "/list";
     return this._http.get<string>(endPoint);
   }
 
 
   getOne(recordNum: number) : Observable<string> {
-      let endPoint = this._url + "/one" + recordNum;
+      const endPoint = this._url + "/one" + recordNum;
       return this._http.get<string>(endPoint);
   }
 
