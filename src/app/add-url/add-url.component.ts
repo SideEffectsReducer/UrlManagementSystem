@@ -10,24 +10,26 @@ import { SaveUrlService } from '../save-url.service';
 })
 export class AddUrlComponent implements OnInit {
 
-  public urlModel = new UrlModel();
   public externalType = true;
+  @Output() backUrlEvent = new EventEmitter<string>();
+  public urlModel : UrlModel;
 
 
-  constructor(private saveUrlService: SaveUrlService) { }
+  constructor(private saveUrlService: SaveUrlService){
+    this.urlModel = Object.assign({}, new UrlModel(), {
+    title: '',
+    tagName: '',
+    url: '',
+    urlLocation: '',
+    active: false,
+    type: '',
+    pdfLocation: '',
+    pdfStored: false,
+    urlTracked: false
+    });
+   }
 
   ngOnInit(): void {
-    this.urlModel = Object.assign({}, this.urlModel, {
-    title: "aTitle",
-    tagName: "aTagName",
-    url: "aUrl",
-    urlLocation: "aUrlLocation",
-    active: true,
-    type: "aType",
-    pdfLocation: "aPdfLocation",
-    pdfStored: true,
-    urlTracked: true
-    });
 
   }
 
@@ -45,7 +47,6 @@ export class AddUrlComponent implements OnInit {
     console.log(this.urlModel.type);
 }
 
-  @Output() backUrlEvent = new EventEmitter<string>();
 
   notifySwitchToListPage() {
     this.backUrlEvent.emit("list");

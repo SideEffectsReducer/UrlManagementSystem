@@ -77,7 +77,7 @@ describe('ViewUrlComponent', () => {
   });
 
 
-  it('should initalize urlModel list with default values', () => {
+  it('should initalize urlModel with default values', () => {
     // arrange
     const defaultUrlObject = 
     {
