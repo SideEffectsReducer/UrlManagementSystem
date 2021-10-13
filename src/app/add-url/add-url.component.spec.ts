@@ -1,12 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SaveUrlService } from '../save-url.service';
-import { AddUrlComponent } from './add-url.component';
+import {TestBed} from '@angular/core/testing';
+import {SaveUrlService} from '../save-url.service';
+import {AddUrlComponent} from './add-url.component';
 import {first} from 'rxjs/operators';
 
 describe('AddUrlComponent', () => {
   let component: AddUrlComponent;
   let saveUrlService: SaveUrlService;
-  let fixture: ComponentFixture<AddUrlComponent>;
   class MockSaveUrlService{
     save = jasmine.createSpy('save');
   }
@@ -25,7 +24,7 @@ describe('AddUrlComponent', () => {
   saveUrlService = TestBed.inject(SaveUrlService);
   });
 
-  
+
  it('should initalize urlModel with default values', () => {
     // arrange
     const defaultUrlObject = 
@@ -43,7 +42,7 @@ describe('AddUrlComponent', () => {
     // act
     // nothing here
     // assert
-    expect(component.urlModel).toEqual(defaultUrlObject);
+    expect(component.urlRecord).toEqual(defaultUrlObject);
   });
 
 
@@ -54,7 +53,7 @@ describe('AddUrlComponent', () => {
     component.onExternalType(activeExternalType);
     // assert
     expect(component.externalType).toEqual(activeExternalType);
-    expect(component.urlModel.type).toEqual('external');
+    expect(component.urlRecord.type).toEqual('external');
   });
 
 
@@ -65,7 +64,7 @@ describe('AddUrlComponent', () => {
     component.onExternalType(activeExternalType);
     // assert
     expect(component.externalType).toEqual(activeExternalType);
-    expect(component.urlModel.type).toEqual('upload');
+    expect(component.urlRecord.type).toEqual('upload');
   });
 
 
@@ -85,6 +84,6 @@ describe('AddUrlComponent', () => {
     // act
     component.onSubmit();
     // assert
-    expect(saveUrlService.save).toHaveBeenCalledWith(component.urlModel);
+    expect(saveUrlService.save).toHaveBeenCalledWith(component.urlRecord);
   });
 });

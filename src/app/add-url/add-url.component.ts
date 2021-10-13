@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
-import { SaveUrlService } from '../save-url.service';
+import {SaveUrlService} from '../save-url.service';
 
 @Component({
   selector: 'app-add-url',
@@ -9,14 +9,14 @@ import { SaveUrlService } from '../save-url.service';
   providers: [SaveUrlService]
 })
 export class AddUrlComponent implements OnInit {
-
-  public externalType = true;
-  @Output() backUrlEvent = new EventEmitter<string>();
-  public urlModel : UrlModel;
-
+  externalType = true;
+  _urlRecord : UrlModel;
+  @Output() backUrlEvent : EventEmitter<string>;
 
   constructor(private saveUrlService: SaveUrlService){
-    this.urlModel = Object.assign({}, new UrlModel(), {
+    this.externalType = true;
+    this.backUrlEvent = new EventEmitter<string>();
+    this._urlRecord = Object.assign({}, new UrlModel(), {
     title: '',
     tagName: '',
     url: '',
@@ -30,28 +30,27 @@ export class AddUrlComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+  // nothing here
   }
 
-  onSubmit(){
-    console.log("onSubmit()");
-
-    this.saveUrlService.save(this.urlModel);
-    //  to do service here
-
+  get urlRecord(): UrlModel{
+    return this._urlRecord;
   }
 
-  onExternalType(externalType: boolean){
-    this.urlModel.type = externalType ? "external" : "upload";
+  set urlRecord(urlRecord: UrlModel){
+    this._urlRecord = urlRecord;
+  }
+
+  onSubmit() : void{
+    this.saveUrlService.save(this.urlRecord);
+  }
+
+  onExternalType(externalType: boolean): void{
+    this.urlRecord.type = externalType ? 'external' : 'upload';
     this.externalType = externalType;
-    console.log(this.urlModel.type);
 }
 
-
-  notifySwitchToListPage() {
+  notifySwitchToListPage(): void {
     this.backUrlEvent.emit("list");
   }
-
-
 }
-
