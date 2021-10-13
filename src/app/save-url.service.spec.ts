@@ -1,48 +1,47 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import { SaveUrlService } from './save-url.service';
-
-class MockSubscribable{
-        subscribe(){
-          console.log("subscribe");
-        }
-
-}
-
-class MockHttpClient{
-  get(){
-    console.log("Mocked http get method");
-    return new MockSubscribable();
-  }
-
-  post(){
-    console.log("Mocked http post method");
-    return new MockSubscribable();
-  }
-}
-
-
+import {UrlModel} from './shared/models/url.model';
 
 describe('SaveUrlService', () => {
   let service: SaveUrlService;
-  let httpClient: HttpClient;
+  let controller: HttpTestingController;
 
-    beforeEach(async () => {
-      TestBed.configureTestingModule({
+  function createComponent(){
+    TestBed.configureTestingModule({
     // provide the component-under-test and dependent service
-    providers: [
-      SaveUrlService,
-      { provide: HttpClient, useClass: MockHttpClient }
-    ]
+    imports: [HttpClientTestingModule],
+    providers: [SaveUrlService]
+  });
+  }
+  
+  beforeEach(() => {
+      createComponent();
+      // inject both the component and the dependent service.
+      service = TestBed.inject(SaveUrlService);
+      controller = TestBed.inject(HttpTestingController);
   });
 
-  // inject both the component and the dependent service.
-  service = TestBed.inject(SaveUrlService);
-  httpClient = TestBed.inject(HttpClient);
 
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should save url to the via post request to the server', () => {
+    // arrange
+    const expectedUrlObject: UrlModel =
+    {
+      'title': 'Mock title',
+      'tagName': 'Mock tag',
+      'url': 'Mock url',
+      'urlLocation': 'Mock url location',
+      'active': true,
+      'type': 'Mock type',
+      'pdfLocation': 'Mock pdf location',
+      'pdfStored': true,
+      'urlTracked': true,
+    };
+    //act
+    service.save(expectedUrlObject);
+    // assert
+    //Get a mock request for the URL
+    const mockRequest = controller.expectOne("http://localhost:3000/api/example/add");
+    expect(mockRequest.request.body).toEqual(expectedUrlObject);
   });
 });
