@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ListUrlComponent } from './list-url.component';
 import { GetUrlService } from '../get-url.service';
 import { Observable, of } from 'rxjs';
 import { UrlModel } from '../shared/models/url.model';
 import { first } from 'rxjs/operators';
+import { DeleteUrlService } from '../delete-url.service';
 
   const expectedUrlObject =
     {
@@ -32,6 +33,12 @@ import { first } from 'rxjs/operators';
       'urlTracked': false,
     };
 
+
+  class MockDeleteUrlSevice {
+    deleteRecord(idToRemove: number): Observable<any> {
+      return of(0);
+    }
+  }
   class MockGetUrlService {
     getAll(): Observable<string> {
       return of(this.getMockData());
@@ -59,6 +66,7 @@ describe('ListUrlComponent', () => {
       providers: [
         ListUrlComponent,
         {provide: GetUrlService, useClass: MockGetUrlService},
+        {provide: DeleteUrlService, useClass: MockDeleteUrlSevice},
       ]
     })
     .compileComponents();
