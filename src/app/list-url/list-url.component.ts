@@ -11,41 +11,43 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListUrlComponent implements OnInit {
 
-  public urlModel = new UrlModel();
-  public listOfUrlRecords = Array<UrlModel>();
-  private _url = "http://localhost:3000/api/example/list";
+  @Output() addUrlEvent : EventEmitter<string>;
+  @Output() viewUrlEvent : EventEmitter<Record<string, number>>;
+  private _listOfUrlRecords : UrlModel[];
   private _urlDelete = 'http://localhost:3000/api/example/delete';
 
-  constructor(private _http :HttpClient, private _getUrlService: GetUrlService) { }
-
+  constructor(private _http :HttpClient, private _getUrlService: GetUrlService) {
+    this.addUrlEvent = new EventEmitter<string>();
+    this.viewUrlEvent = new EventEmitter<Record<string, number>>();
+    this._listOfUrlRecords = new Array<UrlModel>();
+  }
   ngOnInit(): void {
-    this.urlModel = Object.assign({}, this.urlModel, {
-    title: "aTitle",
-    tagName: "aTagName",
-    url: "aUrl",
-    urlLocation: "aUrlLocation",
-    active: true,
-    type: "aType",
-    pdfLocation: "aPdfLocation",
-    pdfStored: true,
-    urlTracked: true
-    });
-
     this.updateTable();
-
   }
 
-    updateTable(){
-      this._getUrlService.getAll().subscribe(data => {
-        console.log("start");
-        console.log(data);
-        this.listOfUrlRecords = JSON.parse(data);
-        console.log(this.urlModel);
-        console.log("First record: ", this.listOfUrlRecords[0]);
-      });
-    }
+ public get listOfUrlRecords(): UrlModel[]{
+    return this._listOfUrlRecords;
+  }
 
-deleteRecord(idToRemove: number){
+ public set listOfUrlRecords(urlList: UrlModel[]){
+  this._listOfUrlRecords = urlList;
+}
+
+  updateTable(): void{
+    this._getUrlService.getAll().subscribe(data => {
+      this.listOfUrlRecords = JSON.parse(data);
+    });
+  }
+
+  notifySwitchToAddPage() :void {
+    this.addUrlEvent.emit('add');
+  }
+
+  notifySwitchToViewPage(id: number): void{
+    this.viewUrlEvent.emit({'view': id});
+  }
+
+deleteRecord(idToRemove: number): void{
     const body = {id: idToRemove};
     if (confirm(`Are you sure you want to delete record #${idToRemove} ?`)) {
       console.log('User allowed');
@@ -59,24 +61,4 @@ deleteRecord(idToRemove: number){
         console.log('User not allowed');
     }
 }
-
-  @Output() addUrlEvent = new EventEmitter<string>();
-  @Output() viewUrlEvent = new EventEmitter<Object>();
-
-  notifySwitchToAddPage() {
-    this.addUrlEvent.emit("add");
-  }
-
-    notifySwitchToViewPage(id: number) {
-      console.log("emit view", id);
-    this.viewUrlEvent.emit({'view': id});
-  }
-
-
-
-
-
-  redirectToPDF(id: number){
-
-  }
 }

@@ -1,11 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { ListUrlComponent } from './list-url.component';
 import { GetUrlService } from '../get-url.service';
 import { Observable, of } from 'rxjs';
 import { UrlModel } from '../shared/models/url.model';
 import { first } from 'rxjs/operators';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
   const expectedUrlObject =
     {
@@ -33,27 +32,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
       'urlTracked': false,
     };
 
-
-
-class MockSubscribable{
-        subscribe(){
-          console.log("subscribe");
-        }
-
-}
-class MockHttpClient{
-  get(){
-    console.log("Mocked http get method");
-    return new MockSubscribable();
-  }
-
-  delete(){
-    console.log("Mocked http get method");
-    return new MockSubscribable();
-  }
-
-}
-
   class MockGetUrlService {
     getAll(): Observable<string> {
       return of(this.getMockData());
@@ -72,8 +50,7 @@ class MockHttpClient{
 
 describe('ListUrlComponent', () => {
   let component: ListUrlComponent;
-    let httpClient: HttpClient;
-  let fixture: ComponentFixture<ListUrlComponent>;
+  // let fixture: ComponentFixture<ListUrlComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -82,14 +59,12 @@ describe('ListUrlComponent', () => {
       providers: [
         ListUrlComponent,
         {provide: GetUrlService, useClass: MockGetUrlService},
-        {provide: HttpClient, useClass: MockHttpClient}
       ]
     })
     .compileComponents();
 
     component = TestBed.inject(ListUrlComponent);
-    httpClient = TestBed.inject(HttpClient);
-    fixture = TestBed.createComponent(ListUrlComponent);
+    // fixture = TestBed.createComponent(ListUrlComponent);
   });
 
  it('should emit add event upon add button click', async() => {
