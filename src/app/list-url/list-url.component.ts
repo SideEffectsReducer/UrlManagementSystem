@@ -1,20 +1,22 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { UrlModel } from '../shared/models/url.model';
+import {GetUrlService} from '../get-url.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-url',
   templateUrl: './list-url.component.html',
-  styleUrls: ['./list-url.component.less']
+  styleUrls: ['./list-url.component.less'],
+  providers: [GetUrlService]
 })
 export class ListUrlComponent implements OnInit {
 
   public urlModel = new UrlModel();
   public listOfUrlRecords = Array<UrlModel>();
   private _url = "http://localhost:3000/api/example/list";
-  private _urlDelete = "http://localhost:3000/api/example/delete";
+  private _urlDelete = 'http://localhost:3000/api/example/delete';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http :HttpClient, private _getUrlService: GetUrlService) { }
 
   ngOnInit(): void {
     this.urlModel = Object.assign({}, this.urlModel, {
@@ -34,7 +36,7 @@ export class ListUrlComponent implements OnInit {
   }
 
     updateTable(){
-      this._http.get<any>(this._url).subscribe(data => {
+      this._getUrlService.getAll().subscribe(data => {
         console.log("start");
         console.log(data);
         this.listOfUrlRecords = JSON.parse(data);
