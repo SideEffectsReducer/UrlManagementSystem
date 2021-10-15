@@ -58,7 +58,7 @@ const expectedUrlObject: UrlModel =
     const promiseResult = service.getOne(recordNum).toPromise();
     // assert
     // Get a mock request for the URL
-    const mockRequest = controller.expectOne('http://localhost:3000/api/example/one0');
+    const mockRequest = controller.expectOne('http://localhost:3000/api/example/one/0');
     // Supply mock data
     mockRequest.flush(JSON.stringify(expectedUrlObject));
     const data = await promiseResult;

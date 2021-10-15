@@ -25,7 +25,7 @@ router.get('/list', function (req, res) {
 });
 
 // • Declaring GET method
-router.get('/one:recordNumber', function (req, res) {
+router.get('/one/:recordNumber', function (req, res) {
   console.log("get");
   // • Use mongoose to get all `examples` in our database
   // • How we got this find() method you'll ask? Well, that comes from our

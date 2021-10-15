@@ -17,7 +17,7 @@ export class GetUrlService {
   }
 
   getOne(recordNum: number): Observable<string> {
-    const endPoint = this._url + '/one' + recordNum;
+    const endPoint = this._url + '/one/' + recordNum;
     return this._http.get<string>(endPoint);
   }
 }
