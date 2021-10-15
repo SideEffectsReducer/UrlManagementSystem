@@ -47,6 +47,15 @@ export class ListUrlComponent implements OnInit {
   }
 
   deleteRecord(idToRemove: number): void{
-    this._deleteUrlService.deleteRecord(idToRemove).subscribe();
-  }
+    if(this.doesUserConfirmed(idToRemove)){
+      this._deleteUrlService.deleteRecord(idToRemove).subscribe();
+    } 
+    else {
+      console.log('User not allowed');
+    }
+}
+
+ private doesUserConfirmed(idToRemove: number): boolean{
+  return confirm(`Are you sure you want to delete record #${idToRemove} ?`);
+ }
 }

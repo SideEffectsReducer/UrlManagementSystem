@@ -130,37 +130,3 @@ describe('ListUrlComponent', () => {
   });
 });
 
-
-// describe('ListUrlComponent', () => {
-//   let service: ListUrlComponent;
-//   let controller: HttpTestingController;
-
-//   function createComponent() {
-//     TestBed.configureTestingModule({
-//       // provide the component-under-test and dependent service
-//       imports: [HttpClientTestingModule],
-//       providers: [ListUrlComponent],
-//     });
-//   }
-
-//    beforeEach(() => {
-//     createComponent();
-//     service = TestBed.inject(ListUrlComponent);
-//     controller = TestBed.inject(HttpTestingController);
-//   });
-
-
-//   it('should request the http server to delete url record', (done) => {
-//     // arange
-//     const urlNumber = 1;
-
-//     // act
-//     service.deleteRecord(urlNumber)
-
-//     // assert
-//     controller.expectOne('http://localhost:3000/api/example/delete');
-//   });
-
-
-
-// });

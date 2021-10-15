@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,8 @@ export class DeleteUrlService {
 
   constructor(private _http : HttpClient) { }
 
-  deleteRecord(idToRemove: number): Observable<any>{
+  deleteRecord(idToRemove: number): Observable<string>{
     const body = {id: idToRemove};
-    if (confirm(`Are you sure you want to delete record #${idToRemove} ?`)) {
-      console.log('User allowed');
-    
-        return this._http.delete<any>(this._urlDelete, {body: body});
-
-    } 
-    else {
-        console.log('User not allowed');
-    }
-      return of(0);
+    return this._http.delete<string>(this._urlDelete, {body: body});
 }
 }
