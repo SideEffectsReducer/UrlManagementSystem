@@ -14,13 +14,16 @@ export class ListUrlComponent implements OnInit {
   @Output() addUrlEvent : EventEmitter<string>;
   @Output() viewUrlEvent : EventEmitter<Record<string, number>>;
   private _listOfUrlRecords : UrlModel[];
+  public _searchEntry : string;
 
   constructor(private _getUrlService: GetUrlService, private _deleteUrlService : DeleteUrlService) {
     this.addUrlEvent = new EventEmitter<string>();
     this.viewUrlEvent = new EventEmitter<Record<string, number>>();
     this._listOfUrlRecords = new Array<UrlModel>();
+    this._searchEntry = '';
   }
   ngOnInit(): void {
+    console.log("init");
     this.updateTable();
   }
 
@@ -30,6 +33,14 @@ export class ListUrlComponent implements OnInit {
 
  public set listOfUrlRecords(urlList: UrlModel[]){
   this._listOfUrlRecords = urlList;
+}
+
+public get searchEntry(): string{
+  return this._searchEntry;
+}
+
+public set searchEntry(aString){
+  this.searchEntry= aString;
 }
 
   updateTable(): void{
@@ -58,4 +69,20 @@ export class ListUrlComponent implements OnInit {
  private doesUserConfirmed(idToRemove: number): boolean{
   return confirm(`Are you sure you want to delete record #${idToRemove} ?`);
  }
+
+onSearchClicked(){
+  console.log("search clicked");
+  console.log(this.searchEntry);
+  this.listOfUrlRecords = this.listOfUrlRecords.filter(record =>{
+    return this.searchThroughCategories(record, this.searchEntry);
+  })
+}
+
+searchThroughCategories(record:UrlModel, searchString: string): boolean{
+  return record.title.includes(this.searchEntry); 
+        //  || record.tagName.includes(this.searchEntry)
+        //  || record.urlLocation.includes(this.searchEntry)
+        //  || record.url.includes(this.searchEntry);
+}
+
 }
