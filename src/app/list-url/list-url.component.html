@@ -40,15 +40,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-1" style="">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-12"><a class="btn btn-dark" href="#" contenteditable="true">Filter</a></div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="col-md-6" style="">
           <div class="row">
             <div class="col-md-12">
@@ -57,9 +48,8 @@
                   <div ngbDropdown class="d-inline-block">
                     <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>View all categories</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                      <button ngbDropdownItem>Action - 1</button>
-                      <button ngbDropdownItem>Another Action</button>
-                      <button ngbDropdownItem>Something else is here</button>
+                      <button (click)="selectedColumnName = 'View all categories'" ngbDropdownItem>View all categories</button>
+                      <button *ngFor="let columnName of _columnsName" (click)="selectedColumnName = columnName" ngbDropdownItem>{{columnName}}</button>
                     </div>
                   </div>
                 </div>
@@ -67,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 offset-md-2" style="">
+        <div class="col-md-3 offset-md-3" style="">
           <div class="row">
             <div class="col-md-12" style="">
               <form class="form-inline" >
@@ -90,15 +80,11 @@
                 <tr>
                   <th>#</th>
                   <th>Action</th>
-                  <th>Title</th>
-                  <th>Url</th>
-                  <th>Tag</th>
-                  <th>Url location</th>
-                  <th>Active</th>
-                  <th>Type</th>
                   <th>PDF</th>
-                  <th>PDF stored</th>
-                  <th>URL traced</th>
+                  <th *ngIf="false == _viewAllCategories">{{selectedColumnName}}</th>
+                  <div *ngIf="true ==_viewAllCategories">
+                    <th *ngFor="let columnName of _columnsName">{{columnName}}</th>
+                  </div>
                 </tr>
               </thead>
                   <tbody *ngFor="let urlModel of this.listOfUrlRecords; let i = index">
@@ -107,15 +93,19 @@
                   <td>
                     <div class="btn-group"> <a (click)="notifySwitchToViewPage(i)" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
                   </td>
+                  <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
+
+                <td *ngIf="false == _viewAllCategories">{{getUrlModelField(urlModel, selectedColumnName)}}</td>
+                <div *ngIf="true ==_viewAllCategories">
                   <td>{{urlModel.title}}</td>
                   <td>{{urlModel.url}}</td>
                   <td>{{urlModel.tagName}}</td>
                   <td>{{urlModel.urlLocation}}</td>
                   <td class="text-success">{{urlModel.active}}</td>
                   <td>{{urlModel.type}}</td>
-                  <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
                   <td>{{urlModel.pdfStored}}</td>
                   <td>{{urlModel.urlTracked}}</td>
+                </div>
                 </tr>
                   </tbody>
               </table>

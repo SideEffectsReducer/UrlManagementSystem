@@ -15,17 +15,36 @@ export class ListUrlComponent implements OnInit {
   @Output() viewUrlEvent : EventEmitter<Record<string, number>>;
   private _listOfUrlRecords : UrlModel[];
   public _searchEntry : string;
+  public _columnsName : string[];
+  public _selectedColumnName : string;
+  public _viewAllCategories :boolean ;
 
   constructor(private _getUrlService: GetUrlService, private _deleteUrlService : DeleteUrlService) {
     this.addUrlEvent = new EventEmitter<string>();
     this.viewUrlEvent = new EventEmitter<Record<string, number>>();
     this._listOfUrlRecords = new Array<UrlModel>();
     this._searchEntry = '';
+    this._columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
+                         'pdfStored', 'urlTracked'];
+    this._selectedColumnName = 'View all categories';
+    this._viewAllCategories = true;
   }
   ngOnInit(): void {
     console.log("init");
     this.updateTable();
   }
+
+ public get selectedColumnName(): string{
+   return this._selectedColumnName;
+ }
+
+ public set selectedColumnName(aString: string){
+    this._viewAllCategories = false;
+    this._selectedColumnName = aString;
+   if('View all categories' == aString){
+      this._viewAllCategories = true;
+   }
+ }
 
  public get listOfUrlRecords(): UrlModel[]{
     return this._listOfUrlRecords;
@@ -42,6 +61,10 @@ public get searchEntry(): string{
 public set searchEntry(aString){
   this.searchEntry= aString;
 }
+
+  getUrlModelField(urlRecord: UrlModel, fieldName : string): string{
+    return (urlRecord as any)[fieldName];
+  }
 
   updateTable(): void{
     this._getUrlService.getAll().subscribe(data => {
