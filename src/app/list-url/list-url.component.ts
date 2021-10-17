@@ -18,6 +18,8 @@ export class ListUrlComponent implements OnInit {
   public _columnsName : string[];
   public _selectedColumnName : string;
   public _viewAllCategories :boolean ;
+  public _maxNumberOfRecords : number;
+  public _currentPageDisplayed :number;
 
   constructor(private _getUrlService: GetUrlService, private _deleteUrlService : DeleteUrlService) {
     this.addUrlEvent = new EventEmitter<string>();
@@ -28,6 +30,8 @@ export class ListUrlComponent implements OnInit {
                          'pdfStored', 'urlTracked'];
     this._selectedColumnName = 'View all categories';
     this._viewAllCategories = true;
+    this._maxNumberOfRecords = 10;
+    this._currentPageDisplayed = 1;
   }
   ngOnInit(): void {
     console.log("init");
@@ -47,7 +51,9 @@ export class ListUrlComponent implements OnInit {
  }
 
  public get listOfUrlRecords(): UrlModel[]{
-    return this._listOfUrlRecords;
+    const firstElementIndex = this._maxNumberOfRecords * (this._currentPageDisplayed - 1);
+    const lastElementIndex = this._maxNumberOfRecords * this._currentPageDisplayed;
+    return this._listOfUrlRecords.slice(firstElementIndex,lastElementIndex);
   }
 
  public set listOfUrlRecords(urlList: UrlModel[]){
@@ -107,5 +113,26 @@ searchThroughCategories(record:UrlModel, searchString: string): boolean{
         //  || record.urlLocation.includes(this.searchEntry)
         //  || record.url.includes(this.searchEntry);
 }
+
+prevPage(){
+  this._currentPageDisplayed -= 1;
+}
+firstPage(){
+  this._currentPageDisplayed = 1;
+}
+secondPage(){
+  this._currentPageDisplayed = 2;
+}
+thirdPage(){
+  this._currentPageDisplayed = 3;
+}
+fourthPage(){
+  this._currentPageDisplayed = 4;
+}
+nextPage(){
+  this._currentPageDisplayed += 1;
+}
+
+
 
 }
