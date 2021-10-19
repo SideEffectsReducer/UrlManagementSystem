@@ -108,10 +108,10 @@ onSearchClicked(){
 }
 
 searchThroughCategories(record:UrlModel, searchString: string): boolean{
-  return record.title.includes(this.searchEntry); 
-        //  || record.tagName.includes(this.searchEntry)
-        //  || record.urlLocation.includes(this.searchEntry)
-        //  || record.url.includes(this.searchEntry);
+  return record.title.includes(this.searchEntry)
+         || record.tagName.includes(this.searchEntry)
+         || record.urlLocation.includes(this.searchEntry)
+         || record.url.includes(this.searchEntry);
 }
 
 prevPage(){

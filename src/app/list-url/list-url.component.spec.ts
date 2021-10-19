@@ -292,10 +292,46 @@ describe('ListUrlComponent huge amount of data handling', () => {
 
 
 // searching
-  it('search should check only title and return only matching url records', () => {
+  it('search should check title and return only matching url records', () => {
     // arange
     component.ngOnInit();
     component.searchEntry = 'Mock title2';
+
+    // act
+    component.onSearchClicked();
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(2);
+  });
+
+  it('search should check tagName and return only matching url records', () => {
+    // arange
+    component.ngOnInit();
+    component.searchEntry = 'Mock tag2';
+
+    // act
+    component.onSearchClicked();
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(2);
+  });
+
+  it('search should check url and return only matching url records', () => {
+    // arange
+    component.ngOnInit();
+    component.searchEntry = 'Mock url2';
+
+    // act
+    component.onSearchClicked();
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(2);
+  });
+
+  it('search should check urlLocation and return only matching url records', () => {
+    // arange
+    component.ngOnInit();
+    component.searchEntry = 'Mock url location2';
 
     // act
     component.onSearchClicked();
