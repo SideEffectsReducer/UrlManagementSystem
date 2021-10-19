@@ -81,8 +81,8 @@
                   <th>#</th>
                   <th>Action</th>
                   <th>PDF</th>
-                  <th *ngIf="false == viewAllCategories">{{selectedColumnName}}</th>
-                  <div *ngIf="true == viewAllCategories">
+                  <th *ngIf="false === viewAllCategories">{{selectedColumnName}}</th>
+                  <div *ngIf="true === viewAllCategories">
                     <th *ngFor="let columnName of columnsName">{{columnName}}</th>
                   </div>
                 </tr>
@@ -95,8 +95,8 @@
                   </td>
                   <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
 
-                <td *ngIf="false == viewAllCategories">{{getUrlModelField(urlModel, selectedColumnName)}}</td>
-                <div *ngIf="true ==viewAllCategories">
+                <td *ngIf="false === viewAllCategories">{{getUrlModelField(urlModel, selectedColumnName)}}</td>
+                <div *ngIf="true === viewAllCategories">
                   <td>{{urlModel.title}}</td>
                   <td>{{urlModel.url}}</td>
                   <td>{{urlModel.tagName}}</td>
@@ -118,10 +118,10 @@
             <div class="col-md-3" style="">
               <ul class="pagination">
                 <li class="page-item"> <a class="page-link" (click)="prevPage()">Prev</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed == 1 ? 'active' : ''"> <a class="page-link" (click)="firstPage()">1</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed == 2 ? 'active' : ''"> <a class="page-link" (click)="secondPage()">2</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed == 3 ? 'active' : ''"> <a class="page-link" (click)="thirdPage()">3</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed == 4 ? 'active' : ''"> <a class="page-link" (click)="fourthPage()">4</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed === 1 ? 'active' : ''"> <a class="page-link" (click)="firstPage()">1</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed === 2 ? 'active' : ''"> <a class="page-link" (click)="secondPage()">2</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed === 3 ? 'active' : ''"> <a class="page-link" (click)="thirdPage()">3</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed === 4 ? 'active' : ''"> <a class="page-link" (click)="fourthPage()">4</a> </li>
                 <li class="page-item"> <a class="page-link" (click)="nextPage()">Next</a> </li>
               </ul>
             </div>

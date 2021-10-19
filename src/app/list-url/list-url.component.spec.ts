@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ListUrlComponent } from './list-url.component';
 import { GetUrlService } from '../get-url.service';
 import { Observable, of } from 'rxjs';
@@ -224,7 +224,7 @@ describe('ListUrlComponent huge amount of data handling', () => {
   it('should next page and prev page click display the same urls', () => {
     // arrange
     component.ngOnInit();
-    let firstPageList = deepCopy(component.listOfUrlRecords);
+    const firstPageList = deepCopy(component.listOfUrlRecords);
 
     // act
     component.nextPage();
@@ -239,7 +239,7 @@ describe('ListUrlComponent huge amount of data handling', () => {
   it('should prev page and next page click display the same urls', () => {
     // arrange
     component.ngOnInit();
-    let firstPageList = deepCopy(component.listOfUrlRecords);
+    const firstPageList = deepCopy(component.listOfUrlRecords);
 
     // act
     component.prevPage();
