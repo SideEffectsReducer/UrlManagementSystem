@@ -49,7 +49,7 @@
                     <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>View all categories</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                       <button (click)="selectedColumnName = 'View all categories'" ngbDropdownItem>View all categories</button>
-                      <button *ngFor="let columnName of _columnsName" (click)="selectedColumnName = columnName" ngbDropdownItem>{{columnName}}</button>
+                      <button *ngFor="let columnName of columnsName" (click)="selectedColumnName = columnName" ngbDropdownItem>{{columnName}}</button>
                     </div>
                   </div>
                 </div>
@@ -62,7 +62,7 @@
             <div class="col-md-12" style="">
               <form class="form-inline" >
                 <div class="input-group">
-                  <input type="text" class="form-control" [(ngModel)]="_searchEntry" name="searchEntry" id="inlineFormInputGroup" placeholder="Search">
+                  <input type="text" class="form-control" [(ngModel)]="searchEntry" name="searchEntry" id="inlineFormInputGroup" placeholder="Search">
                   <div class="input-group-append"><button class="btn btn-primary" (click)="onSearchClicked()" type="button"><i class="fa fa-search"></i></button></div>
                 </div>
               </form>
@@ -81,9 +81,9 @@
                   <th>#</th>
                   <th>Action</th>
                   <th>PDF</th>
-                  <th *ngIf="false == _viewAllCategories">{{selectedColumnName}}</th>
-                  <div *ngIf="true ==_viewAllCategories">
-                    <th *ngFor="let columnName of _columnsName">{{columnName}}</th>
+                  <th *ngIf="false == viewAllCategories">{{selectedColumnName}}</th>
+                  <div *ngIf="true == viewAllCategories">
+                    <th *ngFor="let columnName of columnsName">{{columnName}}</th>
                   </div>
                 </tr>
               </thead>
@@ -95,8 +95,8 @@
                   </td>
                   <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
 
-                <td *ngIf="false == _viewAllCategories">{{getUrlModelField(urlModel, selectedColumnName)}}</td>
-                <div *ngIf="true ==_viewAllCategories">
+                <td *ngIf="false == viewAllCategories">{{getUrlModelField(urlModel, selectedColumnName)}}</td>
+                <div *ngIf="true ==viewAllCategories">
                   <td>{{urlModel.title}}</td>
                   <td>{{urlModel.url}}</td>
                   <td>{{urlModel.tagName}}</td>
@@ -118,17 +118,17 @@
             <div class="col-md-3" style="">
               <ul class="pagination">
                 <li class="page-item"> <a class="page-link" (click)="prevPage()">Prev</a> </li>
-                <li class="page-item" [ngClass]="_currentPageDisplayed == 1 ? 'active' : ''"> <a class="page-link" (click)="firstPage()">1</a> </li>
-                <li class="page-item" [ngClass]="_currentPageDisplayed == 2 ? 'active' : ''"> <a class="page-link" (click)="secondPage()">2</a> </li>
-                <li class="page-item" [ngClass]="_currentPageDisplayed == 3 ? 'active' : ''"> <a class="page-link" (click)="thirdPage()">3</a> </li>
-                <li class="page-item" [ngClass]="_currentPageDisplayed == 4 ? 'active' : ''"> <a class="page-link" (click)="fourthPage()">4</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed == 1 ? 'active' : ''"> <a class="page-link" (click)="firstPage()">1</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed == 2 ? 'active' : ''"> <a class="page-link" (click)="secondPage()">2</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed == 3 ? 'active' : ''"> <a class="page-link" (click)="thirdPage()">3</a> </li>
+                <li class="page-item" [ngClass]="currentPageDisplayed == 4 ? 'active' : ''"> <a class="page-link" (click)="fourthPage()">4</a> </li>
                 <li class="page-item"> <a class="page-link" (click)="nextPage()">Next</a> </li>
               </ul>
             </div>
             <div class="col-md-6" style="">
               <form class="form-inline">
                 <div class="input-group">
-                  <input type="text" size="3" [(ngModel)]="_maxNumberOfRecords" name="_maxNumberOfRecords" class="form-control">
+                  <input type="text" size="3" [(ngModel)]="maxNumberOfRecords" name="maxNumberOfRecords" class="form-control">
                 </div>
               </form>
             </div>

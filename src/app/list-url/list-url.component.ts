@@ -14,12 +14,12 @@ export class ListUrlComponent implements OnInit {
   @Output() addUrlEvent : EventEmitter<string>;
   @Output() viewUrlEvent : EventEmitter<Record<string, number>>;
   private _listOfUrlRecords : UrlModel[];
-  public _searchEntry : string;
-  public _columnsName : string[];
-  public _selectedColumnName : string;
-  public _viewAllCategories :boolean ;
-  public _maxNumberOfRecords : number;
-  public _currentPageDisplayed :number;
+  private _searchEntry : string;
+  private _columnsName : string[];
+  private _selectedColumnName : string;
+  private _viewAllCategories :boolean ;
+  private _maxNumberOfRecords : number;
+  private _currentPageDisplayed :number;
 
   constructor(private _getUrlService: GetUrlService, private _deleteUrlService : DeleteUrlService) {
     this.addUrlEvent = new EventEmitter<string>();
@@ -37,6 +37,38 @@ export class ListUrlComponent implements OnInit {
     console.log("init");
     this.updateTable();
   }
+
+public get currentPageDisplayed(): number{
+  return this._currentPageDisplayed;
+}
+
+public set currentPageDisplayed(aNumber : number){
+  this._currentPageDisplayed = aNumber;
+}
+
+public get maxNumberOfRecords() : number{
+  return this._maxNumberOfRecords;
+}
+
+public set maxNumberOfRecords(aNumber : number){
+  this._maxNumberOfRecords = aNumber;
+}
+
+public get columnsName() : string[]{
+  return this._columnsName;
+}
+
+public set columnsName(aArray : string[]){
+  this._columnsName = aArray;
+}
+
+public get viewAllCategories() : boolean{
+  return this._viewAllCategories;
+}
+
+public set viewAllCategories(aBoolean : boolean){
+  this._viewAllCategories = aBoolean;
+}
 
  public get selectedColumnName(): string{
    return this._selectedColumnName;
@@ -64,7 +96,7 @@ public get searchEntry(): string{
   return this._searchEntry;
 }
 
-public set searchEntry(aString){
+public set searchEntry(aString : string){
   this._searchEntry= aString;
 }
 
@@ -99,41 +131,39 @@ public set searchEntry(aString){
   return confirm(`Are you sure you want to delete record #${idToRemove} ?`);
  }
 
-onSearchClicked(){
-  console.log("search clicked");
-  console.log(this.searchEntry);
-  this.listOfUrlRecords = this._listOfUrlRecords.filter(record =>{
+onSearchClicked() : void{
+  this._listOfUrlRecords = this._listOfUrlRecords.filter(record =>{
     return this.searchThroughCategories(record, this.searchEntry);
   })
 }
 
-searchThroughCategories(record:UrlModel, searchString: string): boolean{
-  return record.title.includes(this.searchEntry)
-         || record.tagName.includes(this.searchEntry)
-         || record.urlLocation.includes(this.searchEntry)
-         || record.url.includes(this.searchEntry);
+private searchThroughCategories(record : UrlModel, searchString: string): boolean{
+  return record.title.includes(searchString)
+         || record.tagName.includes(searchString)
+         || record.urlLocation.includes(searchString)
+         || record.url.includes(searchString);
 }
 
-prevPage(){
+prevPage() : void{
   this._currentPageDisplayed -= 1;
 }
-firstPage(){
+firstPage() : void{
   this._currentPageDisplayed = 1;
 }
-secondPage(){
+secondPage() :void{
   this._currentPageDisplayed = 2;
 }
-thirdPage(){
+thirdPage() : void{
   this._currentPageDisplayed = 3;
 }
-fourthPage(){
+fourthPage() : void{
   this._currentPageDisplayed = 4;
 }
-nextPage(){
+nextPage() : void{
   this._currentPageDisplayed += 1;
 }
 
-calculateNewUrlIdForPage(regularId: number){
+public calculateNewUrlIdForPage(regularId: number) : number{
   return regularId + (this._currentPageDisplayed - 1)* this._maxNumberOfRecords;
 }
 
