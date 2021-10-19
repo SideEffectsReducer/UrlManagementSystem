@@ -65,7 +65,7 @@ public get searchEntry(): string{
 }
 
 public set searchEntry(aString){
-  this.searchEntry= aString;
+  this._searchEntry= aString;
 }
 
   getUrlModelField(urlRecord: UrlModel, fieldName : string): string{
@@ -102,7 +102,7 @@ public set searchEntry(aString){
 onSearchClicked(){
   console.log("search clicked");
   console.log(this.searchEntry);
-  this.listOfUrlRecords = this.listOfUrlRecords.filter(record =>{
+  this.listOfUrlRecords = this._listOfUrlRecords.filter(record =>{
     return this.searchThroughCategories(record, this.searchEntry);
   })
 }
@@ -133,6 +133,9 @@ nextPage(){
   this._currentPageDisplayed += 1;
 }
 
+calculateNewUrlIdForPage(regularId: number){
+  return regularId + (this._currentPageDisplayed - 1)* this._maxNumberOfRecords;
+}
 
 
 }

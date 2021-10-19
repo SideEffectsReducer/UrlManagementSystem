@@ -7,6 +7,11 @@ import { UrlModel } from '../shared/models/url.model';
 import { first } from 'rxjs/operators';
 import { DeleteUrlService } from '../delete-url.service';
 
+// Not covered testing topics
+// - negative testing
+// - column view switching end to end testing needed
+// - html fields are updated after init.
+
   const expectedUrlObject =
     {
       'title': 'Mock title',
@@ -125,8 +130,178 @@ describe('ListUrlComponent', () => {
   //   }
   // });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
 
+
+
+  class MockBigDataGetUrlService {
+    getAll(): Observable<string> {
+      return of(this.getMockData());
+    }
+
+    private getMockData(): string {
+      return JSON.stringify([
+        expectedUrlObject2, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+        expectedUrlObject2, 
+        expectedUrlObject, 
+        expectedUrlObject, 
+      ]);
+    }
+
+    getOne(recordNum: number): Observable<string> {
+      const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
+      return of(JSON.stringify(listOfUrlRecords[recordNum]));
+    }
+  }
+
+
+describe('ListUrlComponent huge amount of data handling', () => {
+  let component: ListUrlComponent;
+  // let fixture: ComponentFixture<ListUrlComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ListUrlComponent ],
+      imports: [HttpClientModule],
+      providers: [
+        ListUrlComponent,
+        {provide: GetUrlService, useClass: MockBigDataGetUrlService},
+        {provide: DeleteUrlService, useClass: MockDeleteUrlSevice},
+      ]
+    })
+    .compileComponents();
+
+    component = TestBed.inject(ListUrlComponent);
+    // fixture = TestBed.createComponent(ListUrlComponent);
+  });
+
+  function deepCopy(orginalObj: any): any{
+    return  JSON.parse(JSON.stringify(orginalObj));
+  }
+
+
+// page switching
+  it('should display only ten url records on the first page', () => {
+    // arrange
+    component.ngOnInit();
+
+    // act
+    //  nothing here
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(10);
+  });
+
+  it('should next page click display another ten url', () => {
+    // arrange
+    component.ngOnInit();
+
+    // act
+    component.nextPage();
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(10);
+  });
+
+  it('should next page and prev page click display the same urls', () => {
+    // arrange
+    component.ngOnInit();
+    let firstPageList = deepCopy(component.listOfUrlRecords);
+
+    // act
+    component.nextPage();
+    component.prevPage();
+
+    // assert
+    expect(firstPageList).toHaveSize(10);
+    expect(component.listOfUrlRecords).toHaveSize(10);
+    expect(component.listOfUrlRecords).toEqual(firstPageList);
+  });
+
+  it('should prev page and next page click display the same urls', () => {
+    // arrange
+    component.ngOnInit();
+    let firstPageList = deepCopy(component.listOfUrlRecords);
+
+    // act
+    component.prevPage();
+    component.nextPage();
+
+    // assert
+    expect(firstPageList).toHaveSize(10);
+    expect(component.listOfUrlRecords).toHaveSize(10);
+    expect(component.listOfUrlRecords).toEqual(firstPageList);
+  });
+
+  it('once on first page next page click should result the same as clicking second page', () => {
+    // arrange
+    let firstScenarioUrlList = null;
+    let secondScenarioUrlList = null;
+    component.ngOnInit();
+
+    // act
+    component.nextPage();
+    firstScenarioUrlList = deepCopy(component.listOfUrlRecords);
+
+    component.secondPage();
+    secondScenarioUrlList = deepCopy(component.listOfUrlRecords);
+
+    // assert
+    expect(firstScenarioUrlList).toHaveSize(10);
+    expect(secondScenarioUrlList).toHaveSize(10);
+    expect(firstScenarioUrlList).toEqual(secondScenarioUrlList);
+  });
+
+  it('once on second page prev page click should result same as clicking first page', () => {
+    // arrange
+    let firstScenarioUrlList = null;
+    let secondScenarioUrlList = null;
+    component.ngOnInit();
+    component.secondPage();
+
+    // act
+    component.prevPage();
+    firstScenarioUrlList = deepCopy(component.listOfUrlRecords);
+
+    component.firstPage();
+    secondScenarioUrlList = deepCopy(component.listOfUrlRecords);
+
+    // assert
+    expect(firstScenarioUrlList).toHaveSize(10);
+    expect(secondScenarioUrlList).toHaveSize(10);
+    expect(firstScenarioUrlList).toEqual(secondScenarioUrlList);
+  });
+
+
+// searching
+  it('search should check only title and return only matching url records', () => {
+    // arange
+    component.ngOnInit();
+    component.searchEntry = 'Mock title2';
+
+    // act
+    component.onSearchClicked();
+
+    // assert
+    expect(component.listOfUrlRecords).toHaveSize(2);
+  });
+
+});

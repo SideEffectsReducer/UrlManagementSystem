@@ -89,9 +89,9 @@
               </thead>
                   <tbody *ngFor="let urlModel of this.listOfUrlRecords; let i = index">
                 <tr>
-                  <td>{{i + (_currentPageDisplayed - 1)* _maxNumberOfRecords}}</td>
+                  <td>{{calculateNewUrlIdForPage(i)}}</td>
                   <td>
-                    <div class="btn-group"> <a (click)="notifySwitchToViewPage(i + (_currentPageDisplayed - 1)* _maxNumberOfRecords)" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
+                    <div class="btn-group"> <a (click)="notifySwitchToViewPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
                   </td>
                   <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
 
