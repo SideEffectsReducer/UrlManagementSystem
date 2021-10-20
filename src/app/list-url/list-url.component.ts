@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { UrlModel } from '../shared/models/url.model';
 import {GetUrlService} from '../get-url.service';
 import {DeleteUrlService} from '../delete-url.service';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-list-url',
@@ -10,7 +11,8 @@ import {DeleteUrlService} from '../delete-url.service';
   providers: [GetUrlService, DeleteUrlService]
 })
 export class ListUrlComponent implements OnInit {
-
+  readonly _ = _;
+  public  NUMBER_OF_PAGES: number;
   @Output() addUrlEvent : EventEmitter<string>;
   @Output() viewUrlEvent : EventEmitter<Record<string, number>>;
   private _listOfUrlRecords : UrlModel[];
@@ -32,6 +34,7 @@ export class ListUrlComponent implements OnInit {
     this._viewAllCategories = true;
     this._maxNumberOfRecords = 10;
     this._currentPageDisplayed = 1;
+    this.NUMBER_OF_PAGES = 0;
   }
   ngOnInit(): void {
     console.log("init");
@@ -107,6 +110,7 @@ public set searchEntry(aString : string){
   updateTable(): void{
     this._getUrlService.getAll().subscribe(data => {
       this.listOfUrlRecords = JSON.parse(data);
+      this.NUMBER_OF_PAGES = this._listOfUrlRecords.length;
     });
   }
 
@@ -135,6 +139,7 @@ onSearchClicked() : void{
   this._listOfUrlRecords = this._listOfUrlRecords.filter(record =>{
     return this.searchThroughCategories(record, this.searchEntry);
   })
+  this.currentPageDisplayed = 1;
 }
 
 private searchThroughCategories(record : UrlModel, searchString: string): boolean{
@@ -147,17 +152,8 @@ private searchThroughCategories(record : UrlModel, searchString: string): boolea
 prevPage() : void{
   this._currentPageDisplayed -= 1;
 }
-firstPage() : void{
-  this._currentPageDisplayed = 1;
-}
-secondPage() :void{
-  this._currentPageDisplayed = 2;
-}
-thirdPage() : void{
-  this._currentPageDisplayed = 3;
-}
-fourthPage() : void{
-  this._currentPageDisplayed = 4;
+pageClicked(pageNumber : number) : void{
+  this._currentPageDisplayed = pageNumber;
 }
 nextPage() : void{
   this._currentPageDisplayed += 1;

@@ -115,23 +115,14 @@
       <div class="row">
         <div class="col-md-12">
           <div class="row">
-            <div class="col-md-3" style="">
               <ul class="pagination">
                 <li class="page-item"> <a class="page-link" (click)="prevPage()">Prev</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed === 1 ? 'active' : ''"> <a class="page-link" (click)="firstPage()">1</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed === 2 ? 'active' : ''"> <a class="page-link" (click)="secondPage()">2</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed === 3 ? 'active' : ''"> <a class="page-link" (click)="thirdPage()">3</a> </li>
-                <li class="page-item" [ngClass]="currentPageDisplayed === 4 ? 'active' : ''"> <a class="page-link" (click)="fourthPage()">4</a> </li>
+                <li class="page-item" *ngFor="let pageNumber of _.range(1,NUMBER_OF_PAGES/maxNumberOfRecords + 1)" [ngClass]="currentPageDisplayed === pageNumber? 'active' : ''"> <a class="page-link" (click)="pageClicked(pageNumber)">{{pageNumber}}</a> </li>
                 <li class="page-item"> <a class="page-link" (click)="nextPage()">Next</a> </li>
               </ul>
-            </div>
-            <div class="col-md-6" style="">
-              <form class="form-inline">
-                <div class="input-group">
-                  <input type="text" size="3" [(ngModel)]="maxNumberOfRecords" name="maxNumberOfRecords" class="form-control">
-                </div>
-              </form>
-            </div>
+              <div>
+                <input type="text" size="3" [(ngModel)]="maxNumberOfRecords" name="maxNumberOfRecords" class="form-control">
+              </div>
           </div>
         </div>
       </div>

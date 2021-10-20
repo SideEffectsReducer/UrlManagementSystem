@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { UrlModel } from '../shared/models/url.model';
 import { first } from 'rxjs/operators';
 import { DeleteUrlService } from '../delete-url.service';
+import * as _ from "lodash";
 
 // Not covered testing topics
 // - negative testing
@@ -175,6 +176,8 @@ describe('ListUrlComponent', () => {
 
 describe('ListUrlComponent huge amount of data handling', () => {
   let component: ListUrlComponent;
+  const firstPage = 1;
+  const secondPage = 2;
   // let fixture: ComponentFixture<ListUrlComponent>;
 
   beforeEach(() => {
@@ -192,11 +195,6 @@ describe('ListUrlComponent huge amount of data handling', () => {
     component = TestBed.inject(ListUrlComponent);
     // fixture = TestBed.createComponent(ListUrlComponent);
   });
-
-  function deepCopy(orginalObj: any): any{
-    return  JSON.parse(JSON.stringify(orginalObj));
-  }
-
 
 // page switching
   it('should display only ten url records on the first page', () => {
@@ -224,7 +222,7 @@ describe('ListUrlComponent huge amount of data handling', () => {
   it('should next page and prev page click display the same urls', () => {
     // arrange
     component.ngOnInit();
-    const firstPageList = deepCopy(component.listOfUrlRecords);
+    const firstPageList = _.cloneDeep(component.listOfUrlRecords);
 
     // act
     component.nextPage();
@@ -239,7 +237,7 @@ describe('ListUrlComponent huge amount of data handling', () => {
   it('should prev page and next page click display the same urls', () => {
     // arrange
     component.ngOnInit();
-    const firstPageList = deepCopy(component.listOfUrlRecords);
+    const firstPageList = _.cloneDeep(component.listOfUrlRecords);
 
     // act
     component.prevPage();
@@ -259,10 +257,10 @@ describe('ListUrlComponent huge amount of data handling', () => {
 
     // act
     component.nextPage();
-    firstScenarioUrlList = deepCopy(component.listOfUrlRecords);
+    firstScenarioUrlList = _.cloneDeep(component.listOfUrlRecords);
 
-    component.secondPage();
-    secondScenarioUrlList = deepCopy(component.listOfUrlRecords);
+    component.pageClicked(secondPage);
+    secondScenarioUrlList = _.cloneDeep(component.listOfUrlRecords);
 
     // assert
     expect(firstScenarioUrlList).toHaveSize(10);
@@ -275,14 +273,14 @@ describe('ListUrlComponent huge amount of data handling', () => {
     let firstScenarioUrlList = null;
     let secondScenarioUrlList = null;
     component.ngOnInit();
-    component.secondPage();
+    component.pageClicked(secondPage);
 
     // act
     component.prevPage();
-    firstScenarioUrlList = deepCopy(component.listOfUrlRecords);
+    firstScenarioUrlList = _.cloneDeep(component.listOfUrlRecords);
 
-    component.firstPage();
-    secondScenarioUrlList = deepCopy(component.listOfUrlRecords);
+    component.pageClicked(firstPage);
+    secondScenarioUrlList = _.cloneDeep(component.listOfUrlRecords);
 
     // assert
     expect(firstScenarioUrlList).toHaveSize(10);
