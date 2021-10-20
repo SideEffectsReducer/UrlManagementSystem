@@ -18,7 +18,7 @@ export class ListUrlComponent implements OnInit {
   private _listOfUrlRecords : UrlModel[];
   private _searchEntry : string;
   private _columnsName : string[];
-  private _selectedColumnName : string;
+  private _selectedColumnNames : string[];
   private _viewAllCategories :boolean ;
   private _maxNumberOfRecords : number;
   private _currentPageDisplayed :number;
@@ -30,7 +30,7 @@ export class ListUrlComponent implements OnInit {
     this._searchEntry = '';
     this._columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
                          'pdfStored', 'urlTracked'];
-    this._selectedColumnName = 'View all categories';
+    this._selectedColumnNames = [];
     this._viewAllCategories = true;
     this._maxNumberOfRecords = 10;
     this._currentPageDisplayed = 1;
@@ -73,16 +73,17 @@ public set viewAllCategories(aBoolean : boolean){
   this._viewAllCategories = aBoolean;
 }
 
- public get selectedColumnName(): string{
-   return this._selectedColumnName;
+ public get selectedColumnNames(): string[]{
+   return _.cloneDeep(this._selectedColumnNames);
  }
 
- public set selectedColumnName(aString: string){
-    this._viewAllCategories = false;
-    this._selectedColumnName = aString;
-   if('View all categories' == aString){
-      this._viewAllCategories = true;
-   }
+ public onFilterColumnNameClick(aString : string){
+    if(this._selectedColumnNames.find(value => value === aString) === undefined){
+      this._selectedColumnNames.push(aString);
+    }
+    else{
+      _.remove(this._selectedColumnNames, value => value === aString);
+    }
  }
 
  public get listOfUrlRecords(): UrlModel[]{
