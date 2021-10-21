@@ -73,7 +73,7 @@
     </div>
     <div class="container bg-light border shadow">
       <div class="row">
-        <div class="col-auto">
+        <div class="col-md-12">
           <div class="table-responsive">
               <table class="table">
               <thead>
@@ -93,7 +93,7 @@
                 <tr>
                   <td>{{calculateNewUrlIdForPage(i)}}</td>
                   <td>
-                    <div class="btn-group"> <a (click)="notifySwitchToViewPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">View</a> <a href="#" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
+                    <div class="btn-group"> <a (click)="notifySwitchToViewPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">View</a> <a (click)="notifySwitchToEditPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
                   </td>
                   <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
 

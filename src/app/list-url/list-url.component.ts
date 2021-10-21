@@ -123,6 +123,10 @@ public set searchEntry(aString : string){
     this.viewUrlEvent.emit({'view': id});
   }
 
+  notifySwitchToEditPage(id: number): void{
+    this.viewUrlEvent.emit({'edit': id});
+  }
+
   deleteRecord(idToRemove: number): void{
     if(this.doesUserConfirmed(idToRemove)){
       this._deleteUrlService.deleteRecord(idToRemove).subscribe();

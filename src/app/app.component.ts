@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'UrlManagementSystem';
   public currentView = "list";
   public currentViewId = 0;
+  public currentEditId = 0;
 
   receiveMessage(newEvent: any) {
     if(typeof newEvent == "string"){
@@ -20,8 +21,14 @@ export class AppComponent {
     }
     else{
       console.log("This is object");
-      this.currentViewId = newEvent['view'];
-      this.currentView = 'view';
+      if(newEvent['view'] != undefined){
+        this.currentViewId = newEvent['view'];
+        this.currentView = 'view';
+      }
+      if(newEvent['edit'] != undefined){
+        this.currentEditId = newEvent['edit'];
+        this.currentView = 'edit';
+      }
     }
   }
 
