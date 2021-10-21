@@ -54,10 +54,8 @@ private fillViewWithRecievedData() {
     });
 }
 
-
-
-  onSaveButtonClick(){
-
-  }
+onSaveButtonClick(){
+  this._editUrlService.editOne(this.urlRecord);
+}
 
 }

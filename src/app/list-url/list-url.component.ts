@@ -28,7 +28,7 @@ export class ListUrlComponent implements OnInit {
     this.viewUrlEvent = new EventEmitter<Record<string, number>>();
     this._listOfUrlRecords = new Array<UrlModel>();
     this._searchEntry = '';
-    this._columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
+    this._columnsName = ['_id','title', 'url', 'tagName', 'urlLocation', 'active', 'type',
                          'pdfStored', 'urlTracked'];
     this._selectedColumnNames = [];
     this._viewAllCategories = true;
