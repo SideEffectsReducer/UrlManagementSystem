@@ -67,11 +67,34 @@ router.delete('/delete', cors(), function (req, res) {
   });
 
   });
-
- 
  res.sendStatus(200);
 
 });
+
+// • Declaring POST method
+router.post('/edit/:id', cors(), function (req, res) {
+  console.log("post edit");
+  const locationPath = "./generated";
+  const record = {
+    title: req.body.title,
+    tagName: req.body.tagName,
+    url: req.body.url,
+    urlLocation: req.body.urlLocation,
+    active: req.body.active,
+    type: req.body.type,
+    pdfLocation: locationPath + "/" + req.body.title + ".pdf",
+    pdfStored: req.body.pdfStored,
+    urlTracked: req.body.urlTracked
+  }
+
+  urlModel.updateOne({_id: req.params.id}, record,function(err, res) {
+  if(err){
+    console.log(err);
+  }
+  });
+  res.sendStatus(200);
+});
+
 
 // • Declaring POST method
 router.post('/add', cors(), function (req, res) {
@@ -100,6 +123,5 @@ router.post('/add', cors(), function (req, res) {
     });
   });
 });
-
 
 module.exports = router;
