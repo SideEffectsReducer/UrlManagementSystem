@@ -131,6 +131,32 @@ describe('ListUrlComponent', () => {
   //   }
   // });
 
+
+  it('should on click select column should be placed in selectedCoulmnNames array', () => {
+    // arrange
+    const columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
+                         'pdfStored', 'urlTracked'];
+    // act
+    component.onFilterColumnNameClick(columnsName[0]);
+    component.onFilterColumnNameClick(columnsName[1]);
+    component.onFilterColumnNameClick(columnsName[2]);
+
+    // assert
+    expect(component.selectedColumnNames).toEqual([columnsName[0], columnsName[1], columnsName[2]]);
+  })
+
+  it('should on double click select column should be not placed in selectedCoulmnNames array', () => {
+    // arrange
+    const columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
+                         'pdfStored', 'urlTracked'];
+    // act
+    component.onFilterColumnNameClick(columnsName[0]);
+    component.onFilterColumnNameClick(columnsName[0]);
+
+    // assert
+    expect(component.selectedColumnNames).toHaveSize(0);
+  })
+
 });
 
 
