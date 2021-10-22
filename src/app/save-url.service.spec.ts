@@ -27,6 +27,7 @@ describe('SaveUrlService', () => {
     // arrange
     const expectedUrlObject: UrlModel =
     {
+      '_id': 0,
       'title': 'Mock title',
       'tagName': 'Mock tag',
       'url': 'Mock url',

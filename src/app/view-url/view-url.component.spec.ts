@@ -13,6 +13,7 @@ describe('ViewUrlComponent', () => {
 
   const expectedUrlObject =
     {
+      '_id': 0,
       'title': 'Mock title',
       'tagName': 'Mock tag',
       'url': 'Mock url',
@@ -26,6 +27,7 @@ describe('ViewUrlComponent', () => {
 
   const expectedUrlObject2 =
     {
+      '_id': 0,
       'title': 'Mock title2',
       'tagName': 'Mock tag2',
       'url': 'Mock url2',
@@ -81,6 +83,7 @@ describe('ViewUrlComponent', () => {
     // arrange
     const defaultUrlObject = 
     {
+      '_id': 0,
       "title": "",
       "tagName": "",
       "url": "",
@@ -134,5 +137,5 @@ describe('ViewUrlComponent', () => {
     component.ngOnInit();
     // assert
     expect(component.urlRecord).toEqual(expectedUrlObject2);
-  });
+  });  
 });

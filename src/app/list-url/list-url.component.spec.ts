@@ -15,6 +15,7 @@ import * as _ from "lodash";
 
   const expectedUrlObject =
     {
+      '_id': 0,
       'title': 'Mock title',
       'tagName': 'Mock tag',
       'url': 'Mock url',
@@ -28,6 +29,7 @@ import * as _ from "lodash";
 
   const expectedUrlObject2 =
     {
+      '_id': 0,
       'title': 'Mock title2',
       'tagName': 'Mock tag2',
       'url': 'Mock url2',

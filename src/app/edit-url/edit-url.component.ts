@@ -20,6 +20,7 @@ export class EditUrlComponent implements OnInit {
     this.backUrlEvent = new EventEmitter<string>();
 
     this._urlRecord = Object.assign({}, new UrlModel(), {
+    _id: 0,
     title: '',
     tagName: '',
     url: '',

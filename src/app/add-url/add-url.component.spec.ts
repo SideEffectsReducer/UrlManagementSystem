@@ -39,6 +39,7 @@ describe('AddUrlComponent', () => {
     // arrange
     const defaultUrlObject = 
     {
+      '_id': 0,
       "title": "",
       "tagName": "",
       "url": "",

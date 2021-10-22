@@ -3,7 +3,6 @@ import { EditUrlComponent } from './edit-url.component';
 import {EditUrlService} from '../edit-url.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { on } from 'events';
 
 describe('EditUrlComponent', () => {
   let component: EditUrlComponent;
@@ -31,31 +30,33 @@ describe('EditUrlComponent', () => {
   editUrlService = TestBed.inject(EditUrlService);
   });
 
-  // it('should ', () => {
-  //   // arrange
-  //   component.urlRecord = {
-  //     'title': 'Mock title',
-  //     'tagName': 'Mock tag',
-  //     'url': 'Mock url',
-  //     'urlLocation': 'Mock url location',
-  //     'active': true,
-  //     'type': 'Mock type',
-  //     'pdfLocation': 'Mock pdf location',
-  //     'pdfStored': true,
-  //     'urlTracked': true,
-  //   };
+  it('should display all field of url record when edit url record is clicked', () => {
+    // arrange
+    const defaultUrlRecord = {
+      _id:0,
+      title: '',
+      tagName: '',
+      url: '',
+      urlLocation: '',
+      active: false,
+      type: '',
+      pdfLocation: '',
+      pdfStored: false,
+      urlTracked: false
+    };
+    component.ngOnInit();
 
-  //   // act
-  //   component.ngOnInit();
+    // act
 
     // assert
-    expect(editUrlService.editOne).toHaveBeenCalledWith(component.urlRecord);
+    expect(component.urlRecord).toEqual(defaultUrlRecord);
   });
 
-  it('should on edit button click should call edit endpoint with new fields to be updated', () => {
+  it('should call edit endpoint with new fields to be updated when save button is clicked', () => {
     // arrange
     component.ngOnInit();
     component.urlRecord = {
+      '_id': 0,
       'title': 'Mock title',
       'tagName': 'Mock tag',
       'url': 'Mock url',
@@ -74,7 +75,5 @@ describe('EditUrlComponent', () => {
     expect(editUrlService.editOne).toHaveBeenCalledWith(component.urlRecord);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
+ 
