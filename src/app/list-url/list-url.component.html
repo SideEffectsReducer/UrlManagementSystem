@@ -81,28 +81,28 @@
                   <th>#</th>
                   <th>Action</th>
                   <th>PDF</th>
-                  <div *ngIf="false === viewAllCategories">
+                  <ng-container *ngIf="false === viewAllCategories">
                   <th *ngFor="let columnName of selectedColumnNames">{{columnName}}</th>
-                  </div>
-                  <div *ngIf="true === viewAllCategories">
+                  </ng-container>
+                  <ng-container *ngIf="true === viewAllCategories">
                     <th *ngFor="let columnName of columnsName">{{columnName}}</th>
-                  </div>
+                  </ng-container>
                 </tr>
               </thead>
                   <tbody *ngFor="let urlModel of this.listOfUrlRecords; let i = index">
                 <tr>
-                  <td>{{calculateNewUrlIdForPage(i)}}</td>
-                  <td>
+                  <td class="cell-nowrap">{{calculateNewUrlIdForPage(i)}}</td>
+                  <td class="cell-nowrap">
                     <div class="btn-group"> <a (click)="notifySwitchToViewPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">View</a> <a (click)="notifySwitchToEditPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
                   </td>
-                  <td><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
+                  <td class="cell-nowrap"><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel.title}}.pdf">PDF</a></td>
 
-                <div *ngIf="false === viewAllCategories">
+                <ng-container *ngIf="false === viewAllCategories">
                   <td *ngFor="let columnName of selectedColumnNames">{{getUrlModelField(urlModel, columnName)}}</td>
-                </div>
-                <div  *ngIf="true === viewAllCategories">
+                </ng-container>
+                <ng-container  *ngIf="true === viewAllCategories">
                   <td *ngFor="let columnName of columnsName">{{getUrlModelField(urlModel, columnName)}}</td>
-                </div>
+                </ng-container>
                 </tr>
                   </tbody>
               </table>
