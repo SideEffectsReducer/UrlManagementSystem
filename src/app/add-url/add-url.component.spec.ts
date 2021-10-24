@@ -45,7 +45,7 @@ describe('AddUrlComponent', () => {
       "url": "",
       "urlLocation": "",
       "active": false,
-      "type": "",
+      "type": "external",
       "pdfLocation": "",
       "pdfStored": false,
       "urlTracked": false 

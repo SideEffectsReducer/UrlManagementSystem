@@ -23,7 +23,7 @@ export class AddUrlComponent implements OnInit {
     url: '',
     urlLocation: '',
     active: false,
-    type: '',
+    type: 'external',
     pdfLocation: '',
     pdfStored: false,
     urlTracked: false
@@ -47,6 +47,9 @@ export class AddUrlComponent implements OnInit {
   }
 
   onExternalType(externalType: boolean): void{
+    if(!externalType){
+      alert('not implemented yet');
+    }
     this.urlRecord.type = externalType ? 'external' : 'upload';
     this.externalType = externalType;
 }
