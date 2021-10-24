@@ -6,6 +6,7 @@ var cors = require('cors');
 const {createPdf} = require('../pdf_processing');
 
 const urlModel = require('./models/urlModel');
+const https = require('https');
 
 
 // • Declaring GET method
@@ -119,8 +120,24 @@ router.post('/add', cors(), function (req, res) {
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
       const createdUrlRecord = examples[examples.length - 1];
-      console.log(createdUrlRecord);
-      createPdf(req.body.url, createdUrlRecord._id, locationPath);
+      if(createdUrlRecord.pdfStored){
+        createPdf(req.body.url, createdUrlRecord._id, locationPath);
+      }
+      if(createdUrlRecord.urlTracked){
+        createdUrlRecord.active = false;
+        https.get(createdUrlRecord.url, (resp) => {
+          if(200 == resp.statusCode){
+          createdUrlRecord.active = true;
+            urlModel.updateOne({_id: createdUrlRecord._id}, {active: true},function(err, res) {
+            if(err){
+              console.log(err);
+            }
+            });
+          }
+        console.log(createdUrlRecord);
+        });
+
+      }
       res.status(201).json(createdUrlRecord);
     });
   });

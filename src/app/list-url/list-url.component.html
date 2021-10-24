@@ -95,7 +95,12 @@
                   <td class="cell-nowrap">
                     <div class="btn-group"> <a (click)="notifySwitchToViewPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">View</a> <a (click)="notifySwitchToEditPage(calculateNewUrlIdForPage(i))" class="btn btn-primary">Edit</a> <a (click)="deleteRecord(i)" class="btn btn-primary">Delete</a> </div>
                   </td>
-                  <td class="cell-nowrap"><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel._id}}.pdf">PDF</a></td>
+                  <ng-container *ngIf="true == urlModel.pdfStored">
+                    <td class="cell-nowrap"><a class="btn btn-primary" href="http://localhost:3000/generated/{{urlModel._id}}.pdf">PDF</a></td>
+                  </ng-container>
+                  <ng-container *ngIf="false == urlModel.pdfStored">
+                    <td class="cell-nowrap"></td>
+                  </ng-container>
 
                 <ng-container *ngIf="false === viewAllCategories">
                   <td *ngFor="let columnName of selectedColumnNames">{{getUrlModelField(urlModel, columnName)}}</td>

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const api = require('./routes/api');
 var cors = require('cors');
+const {checkUrlsStatusPeriodically} = require('./url-tracking');
+const http = require('http');
 
 
 const port = 3000;
@@ -64,5 +66,24 @@ function close(){
   server.close();
   mongoose.connection.close();
 }
+
+const minutesInterval =1;
+const delayMs = minutesInterval * 60 * 1000;
+
+setInterval(() =>{
+        let callback = function(response) {
+        let str = '';
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+
+        response.on('end', function () {
+            const listOfUrls = JSON.parse(JSON.parse(str));
+            checkUrlsStatusPeriodically(listOfUrls);
+            // console.log(str);
+        });
+      }
+      http.get('http://localhost:3000/api/example/list', callback);
+}, delayMs);
 
 module.exports = {app, close};
