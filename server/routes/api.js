@@ -102,7 +102,6 @@ router.post('/add', cors(), function (req, res) {
   // • We get information form request body
   console.log("post");
   const locationPath = "./generated";
-  createPdf(req.body.url, req.body.title, locationPath);
   urlModel.create({
     title: req.body.title,
     tagName: req.body.tagName,
@@ -110,7 +109,7 @@ router.post('/add', cors(), function (req, res) {
     urlLocation: req.body.urlLocation,
     active: req.body.active,
     type: req.body.type,
-    pdfLocation: locationPath + "/" + req.body.title + ".pdf",
+    pdfLocation: locationPath,
     pdfStored: req.body.pdfStored,
     urlTracked: req.body.urlTracked
   }, function (err, examples) {
@@ -119,7 +118,10 @@ router.post('/add', cors(), function (req, res) {
     // • Get and return all the `examples` after you create another
     urlModel.find(function (err, examples) {
       if (err) { res.send(err); }
-      res.status(201).json(examples[examples.length -1]);
+      const createdUrlRecord = examples[examples.length - 1];
+      console.log(createdUrlRecord);
+      createPdf(req.body.url, createdUrlRecord._id, locationPath);
+      res.status(201).json(createdUrlRecord);
     });
   });
 });
