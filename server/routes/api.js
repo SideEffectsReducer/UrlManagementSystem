@@ -114,7 +114,7 @@ router.post('/add', cors(), function (req, res) {
     pdfStored: req.body.pdfStored,
     urlTracked: req.body.urlTracked
   }, function (err, examples) {
-    if (err) { res.send(err); }
+    if (err) { /*res.send(err);*/ console.log(err); }
 
     // • Get and return all the `examples` after you create another
     urlModel.find(function (err, examples) {
