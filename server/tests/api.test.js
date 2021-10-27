@@ -85,13 +85,13 @@ describe('GET url record end points', function () {
     });
   });
 
-
   it('should get list of url record when endpoint /api/exmaple/list requested', function (done) {
     request(app)
       .get('/api/example/list')
       .set('Accept', 'application/json')
       .expect((res) => {
         console.log(res.body);
+        expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
         const urlData = JSON.parse(res.body);
         const dataUrlRecordOne = urlData[0];
         expect(dataUrlRecordOne).toHaveProperty('_id');
@@ -127,6 +127,7 @@ describe('GET url record end points', function () {
       .set('Accept', 'application/json')
       .expect((res) => {
         console.log(res.body);
+        expect(res.headers['content-type']).toEqual('application/json; charset=utf-8');
         const dataUrlRecord = JSON.parse(res.body);
         expect(dataUrlRecord).toHaveProperty('_id');
         expect(dataUrlRecord.title).toEqual(urlRecord.title);
@@ -171,7 +172,7 @@ describe('POST delete url record endpoints', () => {
       .delete('/api/example/delete')
       .send({ 'id': 0 })
       .expect((res) => {
-        expect(res.statusCode).toEqual(200);
+        expect(res.statusCode).toEqual(202);
       });
 
     await sleep(getRequest);
@@ -241,7 +242,7 @@ describe('POST edit url record endpoints', () => {
       .post('/api/example/edit/' + id_1)
       .send(modifiedUrlRecord)
       .expect((res) => {
-        expect(res.statusCode).toEqual(200);
+        expect(res.statusCode).toEqual(201);
       });
 
     await sleep(getRequest);

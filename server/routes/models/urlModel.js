@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const urlSchema = new Schema({
-    title: String,
+    title: {
+            type: String,
+             required: [true, 'UrlModel reqire title propery and it is required to be string?']
+    },
     tagName: String,
     url: String,
     urlLocation: String,
