@@ -13,18 +13,18 @@ router.get('/list', function (req, res) {
 });
 
 router.get('/one/:recordNumber', function (req, res) {
-  urlModel.find(function (err, examples) {
+  urlModel.find(function (err, urlRecordsList) {
     if (err) { return res.status(406).send(err); }
-    return res.json(JSON.stringify(examples[req.params.recordNumber]));
+    return res.json(JSON.stringify(urlRecordsList[req.params.recordNumber]));
   });
 });
 
 
 router.delete('/delete', function (req, res) {
   let id  =  req.body.id;
-  urlModel.find(function (err, examples) {
+  urlModel.find(function (err, urlRecordsList) {
     if (err) { res.status(406).send(err); }
-    let uniqueId = examples[id]._id;
+    let uniqueId = urlRecordsList[id]._id;
     urlModel.remove({ _id: uniqueId}, function(err) {
       if (err) { return res.status(406).send(err); }
     });
