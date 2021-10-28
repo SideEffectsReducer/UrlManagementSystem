@@ -5,16 +5,41 @@ const Schema = mongoose.Schema;
 const urlSchema = new Schema({
     title: {
             type: String,
-             required: [true, 'UrlModel reqire title propery and it is required to be string?']
+             required: true
     },
-    tagName: String,
-    url: String,
-    urlLocation: String,
-    active: Boolean,
-    type: String,
-    pdfLocation: String,
-    pdfStored: Boolean,
-    urlTracked: Boolean
+    tagName: {
+            type: String,
+            required: true
+    },
+    url: {
+        type: String,
+        required: true
+    },
+    urlLocation: {
+        type: String,
+        required: true
+
+    },
+    active: {
+        type: Boolean,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    pdfLocation: {
+        type: String,
+        required: true
+    },
+    pdfStored: {
+        type: Boolean,
+        required: true
+    },
+    urlTracked: {
+        type: Boolean,
+        required: true
+    }
 });
 
 let urlModel = mongoose.model('urlModel', urlSchema);

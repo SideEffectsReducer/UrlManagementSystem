@@ -52,7 +52,6 @@ router.post('/edit/:id', async function (req, res) {
   return res.sendStatus(201);
 });
 
-// Add return to every sendStatus statement
 
 router.post('/add', async function (req, res) {
   const locationPath = "./generated";
