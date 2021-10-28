@@ -11,8 +11,8 @@ const http = require('http');
 const port = 3000;
 const app = express();
 
-/*test db*/ mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/test_database?retryWrites=true&w=majority', (err) => {
-/* production db*/ // mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/sample_airbnb?retryWrites=true&w=majority', (err) => {
+/*test db*/ // mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/test_database?retryWrites=true&w=majority', (err) => {
+/* production db*/ mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/sample_airbnb?retryWrites=true&w=majority', (err) => {
   if (err) {
     // We want to log if app can not connect to database
     console.log(err);

@@ -7,15 +7,15 @@ const https = require('https');
 
 router.get('/list', function (req, res) {
   urlModel.find(function (err, urlRecordsList) {
-    if (err) { res.status(406).send(err); }
-    res.json(JSON.stringify(urlRecordsList));
+    if (err) { return res.status(406).send(err); }
+    return res.json(JSON.stringify(urlRecordsList));
   });
 });
 
 router.get('/one/:recordNumber', function (req, res) {
   urlModel.find(function (err, examples) {
-    if (err) { res.status(406).send(err); }
-    res.json(JSON.stringify(examples[req.params.recordNumber]));
+    if (err) { return res.status(406).send(err); }
+    return res.json(JSON.stringify(examples[req.params.recordNumber]));
   });
 });
 
@@ -26,16 +26,16 @@ router.delete('/delete', function (req, res) {
     if (err) { res.status(406).send(err); }
     let uniqueId = examples[id]._id;
     urlModel.remove({ _id: uniqueId}, function(err) {
-      if (err) { res.status(406).send(err); }
+      if (err) { return res.status(406).send(err); }
     });
   });
- res.sendStatus(202);
+ return res.sendStatus(202);
 });
 
 router.post('/edit/:id', async function (req, res) {
   const recievedRecord = new urlModel(req.body);
   let validationErr = recievedRecord.validateSync();
-  if(validationErr !== undefined) {res.status(406).send(validationErr); }
+  if(validationErr !== undefined) {return res.status(406).send(validationErr); }
   const modifiedRecord = {
     title: recievedRecord.title,
     tagName: recievedRecord.tagName,
@@ -48,17 +48,17 @@ router.post('/edit/:id', async function (req, res) {
     urlTracked: recievedRecord.urlTracked
   };
   const respMongoDb = await urlModel.updateOne({_id: req.params.id}, modifiedRecord);
-  if (!respMongoDb.acknowledged && err !== undefined) { res.status(406).send('Mongodb response not acknoweldged'); }
-  res.sendStatus(201);
+  if (!respMongoDb.acknowledged && err !== undefined) { return res.status(406).send('Mongodb response not acknoweldged'); }
+  return res.sendStatus(201);
 });
 
+// Add return to every sendStatus statement
 
 router.post('/add', async function (req, res) {
   const locationPath = "./generated";
   const recievedRecord = new urlModel(req.body);
   const validationErr = recievedRecord.validateSync();
-  if(validationErr !== undefined) {res.status(406).send(validationErr); }
-
+  if(validationErr !== undefined) {return res.status(406).send(validationErr); }
   const createdUrlRecord = await urlModel.create({
     title: recievedRecord.title,
     tagName: recievedRecord.tagName,
@@ -77,7 +77,7 @@ router.post('/add', async function (req, res) {
     if(createdUrlRecord.urlTracked){
       updateUrlStatus(createdUrlRecord);
     }
-    res.status(201).json(createdUrlRecord);
+    return res.status(201).json(createdUrlRecord);
 });
 
 function updateUrlStatus(createdUrlRecord){
