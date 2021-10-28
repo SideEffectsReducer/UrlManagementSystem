@@ -35,7 +35,7 @@ const urlSchema = new Schema({
     },
     pdfLocation: {
         type: String,
-        required: true
+        required: false
     },
     pdfStored: {
         type: Boolean,
