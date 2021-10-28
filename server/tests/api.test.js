@@ -5,6 +5,13 @@ const { app, close } = server;
 const mongoose = require('mongoose');
 const urlModel = require('../routes/models/urlModel');
 
+/********************* */
+// TO DO:
+// - border cases and equivalent class tests,
+// - negative testing
+/********************* */
+
+
 const urlRecord = {
   title: "aTitle",
   tagName: "aTagName",
@@ -39,12 +46,6 @@ async function addUrlRecordToDB(urlRecord) {
   return res.body._id;
 }
 
-
-
-// beforeAll(done => {
-//   done();
-// });
-
 afterAll(done => {
   // Closing the DB connection allows Jest to exit successfully.
   urlModel.deleteMany({}, () => {
@@ -54,21 +55,6 @@ afterAll(done => {
   })
 
 });
-
-
-// describe('Sample Test', () => {
-//   it('should test that true === true', () => {
-//     expect(true).toBe(true)
-//   })
-// })
-
-
-// describe('PDF generation', () => {
-//   it('Pdf sucesfully generated', () => {
-
-//     expect(true).toBe(true)
-//   })
-// })
 
 
 describe('GET url record end points', function () {

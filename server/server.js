@@ -7,9 +7,15 @@ const cors = require('cors');
 const {checkUrlsStatusPeriodically} = require('./url-tracking');
 const http = require('http');
 
-
 const port = 3000;
 const app = express();
+
+/********************* */
+// TO DO:
+// - deploy to production and build angular project for production
+// - moving connection string and other important parameter to config file
+/********************* */
+
 
 /* test db */ 
 // mongoose.connect('mongodb+srv://user_31:zaqwsx@cluster0.xuvw0.mongodb.net/test_database?retryWrites=true&w=majority', (err) => {
@@ -53,7 +59,7 @@ function close(){
   mongoose.connection.close();
 }
 
-const minutesInterval =1;
+const minutesInterval =100;
 const delayMs = minutesInterval * 60 * 1000;
 
 setInterval(() =>{

@@ -2,6 +2,12 @@ const https = require('https');
 const http = require('http');
 const urlModel = require('./routes/models/urlModel');
 
+/********************* */
+// TO DO:
+// - checkUrlsStatusPeriodically positve/negative testing
+// - checkUrlsStatusPeriodically function code refactoring
+/********************* */
+
 
 function checkUrlsStatusPeriodically(listOfUrls) {
     console.log("start checkUrlsStatusPeriodically function");

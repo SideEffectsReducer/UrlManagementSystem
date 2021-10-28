@@ -4,6 +4,13 @@ const { createPdf } = require('../pdf_processing');
 const urlModel = require('./models/urlModel');
 const https = require('https');
 
+/********************* */
+// TO DO:
+// - updateUrlStatus function refactioring
+// - improve performance of endopoints: /one/:recordNumber and /delete
+// - add documentation here jsdoc
+/********************* */
+
 
 router.get('/list', function (req, res) {
   urlModel.find(function (err, urlRecordsList) {

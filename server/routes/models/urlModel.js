@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+/********************* */
+// TO DO:
+// - more restrict schema constraints
+/********************* */
+
 const Schema = mongoose.Schema;
 
 const urlSchema = new Schema({

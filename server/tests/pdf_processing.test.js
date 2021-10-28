@@ -1,6 +1,11 @@
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 
+/********************* */
+// TO DO:
+// - negative testing
+/********************* */
+
 const {createPdf} = require('../pdf_processing');
 
 beforeAll(done => {
@@ -11,7 +16,6 @@ beforeAll(done => {
 afterAll(done => {
   done();
 });
-
 
 describe('Pdf processing positive', () => {
 
