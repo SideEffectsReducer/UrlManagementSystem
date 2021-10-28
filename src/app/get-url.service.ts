@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 /********************* */
 // TO DO:
@@ -8,9 +8,9 @@ import {Observable} from 'rxjs';
 /********************* */
 
 @Injectable(
-    {
-      providedIn: 'root',
-    })
+  {
+    providedIn: 'root',
+  })
 export class GetUrlService {
   private _url = 'http://localhost:3000/api/urlMgr';
 

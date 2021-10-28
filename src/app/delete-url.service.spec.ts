@@ -10,7 +10,7 @@ describe('DeleteUrlService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [DeleteUrlService]
-      
+
     })
     service = TestBed.inject(DeleteUrlService);
     controller = TestBed.inject(HttpTestingController);
@@ -20,7 +20,7 @@ describe('DeleteUrlService', () => {
   it('should request the http server to delete url record', async () => {
     // arange
     const urlNumber = 1;
-    const expectedBody = {'id': urlNumber};
+    const expectedBody = { 'id': urlNumber };
 
     // act
     let promiseResult = service.deleteRecord(urlNumber).toPromise();
@@ -28,7 +28,7 @@ describe('DeleteUrlService', () => {
     // assert
     const mockRequest = controller.expectOne('http://localhost:3000/api/urlMgr/delete');
     mockRequest.flush(JSON.stringify(" "));  // do not delete it
-    let result = await promiseResult; 
+    let result = await promiseResult;
   });
 
 

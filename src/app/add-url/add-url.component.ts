@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {UrlModel} from "../shared/models/url.model";
-import {SaveUrlService} from '../save-url.service';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UrlModel } from "../shared/models/url.model";
+import { SaveUrlService } from '../save-url.service';
 
 /********************* */
 // TO DO:
@@ -14,49 +14,49 @@ import {SaveUrlService} from '../save-url.service';
 })
 export class AddUrlComponent implements OnInit {
   externalType = true;
-  _urlRecord : UrlModel;
-  @Output() backUrlEvent : EventEmitter<string>;
+  _urlRecord: UrlModel;
+  @Output() backUrlEvent: EventEmitter<string>;
 
-  constructor(private saveUrlService: SaveUrlService){
+  constructor(private saveUrlService: SaveUrlService) {
     this.externalType = true;
     this.backUrlEvent = new EventEmitter<string>();
     this._urlRecord = Object.assign({}, new UrlModel(), {
-    _id: null,
-    title: '',
-    tagName: '',
-    url: '',
-    urlLocation: '',
-    active: false,
-    type: 'external',
-    pdfLocation: '',
-    pdfStored: false,
-    urlTracked: false
+      _id: null,
+      title: '',
+      tagName: '',
+      url: '',
+      urlLocation: '',
+      active: false,
+      type: 'external',
+      pdfLocation: '',
+      pdfStored: false,
+      urlTracked: false
     });
-   }
-
-  ngOnInit(): void {
-  // nothing here
   }
 
-  get urlRecord(): UrlModel{
+  ngOnInit(): void {
+    // nothing here
+  }
+
+  get urlRecord(): UrlModel {
     return this._urlRecord;
   }
 
-  set urlRecord(urlRecord: UrlModel){
+  set urlRecord(urlRecord: UrlModel) {
     this._urlRecord = urlRecord;
   }
 
-  onSubmit() : void{
+  onSubmit(): void {
     this.saveUrlService.save(this.urlRecord);
   }
 
-  onExternalType(externalType: boolean): void{
-    if(!externalType){
+  onExternalType(externalType: boolean): void {
+    if (!externalType) {
       alert('not implemented yet');
     }
     this.urlRecord.type = externalType ? 'external' : 'upload';
     this.externalType = externalType;
-}
+  }
 
   notifySwitchToListPage(): void {
     this.backUrlEvent.emit("list");

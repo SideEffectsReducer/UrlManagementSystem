@@ -9,7 +9,7 @@ export class SaveUrlService {
 
   constructor(private _http: HttpClient) { }
 
-  save(urlModel : UrlModel): void{
+  save(urlModel: UrlModel): void {
     this._http.post<string>(this._url, urlModel).subscribe(
       () => alert('success!'),
       (error) => alert('error!\n' + error)

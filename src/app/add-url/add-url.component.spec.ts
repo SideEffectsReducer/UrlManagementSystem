@@ -1,11 +1,11 @@
-import {ComponentFixture,TestBed} from '@angular/core/testing';
-import {SaveUrlService} from '../save-url.service';
-import {AddUrlComponent} from './add-url.component';
-import {first} from 'rxjs/operators';
-import {UrlModel} from '../shared/models/url.model';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SaveUrlService } from '../save-url.service';
+import { AddUrlComponent } from './add-url.component';
+import { first } from 'rxjs/operators';
+import { UrlModel } from '../shared/models/url.model';
 import { DebugElement } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 
@@ -22,44 +22,44 @@ describe('AddUrlComponent', () => {
   let component: AddUrlComponent;
   let saveUrlService: SaveUrlService;
   let fixture: ComponentFixture<AddUrlComponent>;
-  class MockSaveUrlService{
+  class MockSaveUrlService {
     save = jasmine.createSpy('save');
   }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    // provide the component-under-test and dependent service
-    declarations:[AddUrlComponent],
-    imports: [FormsModule, HttpClientModule],
-    providers: [
-      AddUrlComponent,
-      { provide: SaveUrlService, useClass: MockSaveUrlService }
-    ]
+      // provide the component-under-test and dependent service
+      declarations: [AddUrlComponent],
+      imports: [FormsModule, HttpClientModule],
+      providers: [
+        AddUrlComponent,
+        { provide: SaveUrlService, useClass: MockSaveUrlService }
+      ]
+    });
+
+    // inject both the component and the dependent service.
+
+    component = TestBed.inject(AddUrlComponent);
+    fixture = TestBed.createComponent(AddUrlComponent);
+    saveUrlService = TestBed.inject(SaveUrlService);
   });
 
-  // inject both the component and the dependent service.
 
-  component = TestBed.inject(AddUrlComponent);
-  fixture = TestBed.createComponent(AddUrlComponent);
-  saveUrlService = TestBed.inject(SaveUrlService);
-  });
-
-
- it('should initalize urlModel with default values', () => {
+  it('should initalize urlModel with default values', () => {
     // arrange 
     const defaultUrlObject = Object.assign({}, new UrlModel(),
-    {
-      '_id': null,
-      "title": "",
-      "tagName": "",
-      "url": "",
-      "urlLocation": "",
-      "active": false,
-      "type": "external",
-      "pdfLocation": "",
-      "pdfStored": false,
-      "urlTracked": false 
-    });
+      {
+        '_id': null,
+        "title": "",
+        "tagName": "",
+        "url": "",
+        "urlLocation": "",
+        "active": false,
+        "type": "external",
+        "pdfLocation": "",
+        "pdfStored": false,
+        "urlTracked": false
+      });
     // act
     // nothing here
     // assert
@@ -89,7 +89,7 @@ describe('AddUrlComponent', () => {
   });
 
 
- it('should emit list event upon back button click', async() => {
+  it('should emit list event upon back button click', async () => {
     // arange
     const promiseEventValue = component.backUrlEvent.pipe(first()).toPromise();
     // act

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditUrlComponent } from './edit-url.component';
-import {EditUrlService} from '../edit-url.service';
+import { EditUrlService } from '../edit-url.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -16,32 +16,32 @@ describe('EditUrlComponent', () => {
   let component: EditUrlComponent;
   let editUrlService: EditUrlService;
   let fixture: ComponentFixture<EditUrlComponent>;
-  class MockEditUrlService{
+  class MockEditUrlService {
     editOne = jasmine.createSpy('editOne');
   }
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    // provide the component-under-test and dependent service
-    declarations:[EditUrlComponent],
-    imports: [FormsModule, HttpClientModule],
-    providers: [
-      EditUrlComponent,
-      { provide: EditUrlService, useClass: MockEditUrlService }
-    ]
-  });
+      // provide the component-under-test and dependent service
+      declarations: [EditUrlComponent],
+      imports: [FormsModule, HttpClientModule],
+      providers: [
+        EditUrlComponent,
+        { provide: EditUrlService, useClass: MockEditUrlService }
+      ]
+    });
 
-  // inject both the component and the dependent service.
+    // inject both the component and the dependent service.
 
-  component = TestBed.inject(EditUrlComponent);
-  fixture = TestBed.createComponent(EditUrlComponent);
-  editUrlService = TestBed.inject(EditUrlService);
+    component = TestBed.inject(EditUrlComponent);
+    fixture = TestBed.createComponent(EditUrlComponent);
+    editUrlService = TestBed.inject(EditUrlService);
   });
 
   it('should display all field of url record when edit url record is clicked', () => {
     // arrange
     const defaultUrlRecord = {
-      _id:0,
+      _id: 0,
       title: '',
       tagName: '',
       url: '',
@@ -84,4 +84,3 @@ describe('EditUrlComponent', () => {
   });
 
 });
- 

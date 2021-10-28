@@ -1,5 +1,5 @@
 
-export class UrlModel{
+export class UrlModel {
     _id!: number
     title!: String;
     tagName!: String;

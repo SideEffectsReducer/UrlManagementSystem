@@ -13,19 +13,16 @@ export class AppComponent {
   public currentEditId = 0;
 
   receiveMessage(newEvent: any) {
-    if(typeof newEvent == "string"){
-      console.log("This is string");
-      console.log("Event recieved in parent");
+    if (typeof newEvent == "string") {
       console.log(newEvent);
       this.currentView = newEvent;
     }
-    else{
-      console.log("This is object");
-      if(newEvent['view'] != undefined){
+    else {
+      if (newEvent['view'] != undefined) {
         this.currentViewId = newEvent['view'];
         this.currentView = 'view';
       }
-      if(newEvent['edit'] != undefined){
+      if (newEvent['edit'] != undefined) {
         this.currentEditId = newEvent['edit'];
         this.currentView = 'edit';
       }

@@ -6,11 +6,11 @@ const fsExtra = require('fs-extra');
 // - negative testing
 /********************* */
 
-const {createPdf} = require('../pdf_processing');
+const { createPdf } = require('../pdf_processing');
 
 beforeAll(done => {
-    fsExtra.emptyDirSync("./generated");
-    done();
+  fsExtra.emptyDirSync("./generated");
+  done();
 });
 
 afterAll(done => {
@@ -22,10 +22,10 @@ describe('Pdf processing positive', () => {
   it('Should generate pdf sucessfully', () => {
     const url = "https://stackoverflow.com/";
     const pdfName = "succesfully_generated";
-    const path= "./generated";
+    const path = "./generated";
     const relativePath = path + "/" + pdfName + ".pdf";
-    createPdf(url, pdfName, path).then(() =>{
-    expect(fs.existsSync(relativePath)).toEqual(true);
+    createPdf(url, pdfName, path).then(() => {
+      expect(fs.existsSync(relativePath)).toEqual(true);
     });
   });
 });

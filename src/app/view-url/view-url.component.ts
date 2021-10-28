@@ -1,6 +1,6 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
-import {UrlModel} from '../shared/models/url.model';
-import {GetUrlService} from '../get-url.service';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { UrlModel } from '../shared/models/url.model';
+import { GetUrlService } from '../get-url.service';
 
 /********************* */
 // TO DO:

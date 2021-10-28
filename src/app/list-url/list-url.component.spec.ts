@@ -18,54 +18,54 @@ import * as _ from "lodash";
 // - e2e testing with protractor
 /********************* */
 
-  const expectedUrlObject =
-    {
-      '_id': 0,
-      'title': 'Mock title',
-      'tagName': 'Mock tag',
-      'url': 'Mock url',
-      'urlLocation': 'Mock url location',
-      'active': true,
-      'type': 'Mock type',
-      'pdfLocation': 'Mock pdf location',
-      'pdfStored': true,
-      'urlTracked': true,
-    };
+const expectedUrlObject =
+{
+  '_id': 0,
+  'title': 'Mock title',
+  'tagName': 'Mock tag',
+  'url': 'Mock url',
+  'urlLocation': 'Mock url location',
+  'active': true,
+  'type': 'Mock type',
+  'pdfLocation': 'Mock pdf location',
+  'pdfStored': true,
+  'urlTracked': true,
+};
 
-  const expectedUrlObject2 =
-    {
-      '_id': 0,
-      'title': 'Mock title2',
-      'tagName': 'Mock tag2',
-      'url': 'Mock url2',
-      'urlLocation': 'Mock url location2',
-      'active': false,
-      'type': 'Mock type2',
-      'pdfLocation': 'Mock pdf location2',
-      'pdfStored': false,
-      'urlTracked': false,
-    };
+const expectedUrlObject2 =
+{
+  '_id': 0,
+  'title': 'Mock title2',
+  'tagName': 'Mock tag2',
+  'url': 'Mock url2',
+  'urlLocation': 'Mock url location2',
+  'active': false,
+  'type': 'Mock type2',
+  'pdfLocation': 'Mock pdf location2',
+  'pdfStored': false,
+  'urlTracked': false,
+};
 
 
-  class MockDeleteUrlSevice {
-    deleteRecord(idToRemove: number): Observable<any> {
-      return of(0);
-    }
+class MockDeleteUrlSevice {
+  deleteRecord(idToRemove: number): Observable<any> {
+    return of(0);
   }
-  class MockGetUrlService {
-    getAll(): Observable<string> {
-      return of(this.getMockData());
-    }
-
-    private getMockData(): string {
-      return JSON.stringify([expectedUrlObject, expectedUrlObject2]);
-    }
-
-    getOne(recordNum: number): Observable<string> {
-      const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
-      return of(JSON.stringify(listOfUrlRecords[recordNum]));
-    }
+}
+class MockGetUrlService {
+  getAll(): Observable<string> {
+    return of(this.getMockData());
   }
+
+  private getMockData(): string {
+    return JSON.stringify([expectedUrlObject, expectedUrlObject2]);
+  }
+
+  getOne(recordNum: number): Observable<string> {
+    const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
+    return of(JSON.stringify(listOfUrlRecords[recordNum]));
+  }
+}
 
 
 describe('ListUrlComponent', () => {
@@ -74,21 +74,21 @@ describe('ListUrlComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListUrlComponent ],
+      declarations: [ListUrlComponent],
       imports: [HttpClientModule],
       providers: [
         ListUrlComponent,
-        {provide: GetUrlService, useClass: MockGetUrlService},
-        {provide: DeleteUrlService, useClass: MockDeleteUrlSevice},
+        { provide: GetUrlService, useClass: MockGetUrlService },
+        { provide: DeleteUrlService, useClass: MockDeleteUrlSevice },
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     component = TestBed.inject(ListUrlComponent);
     // fixture = TestBed.createComponent(ListUrlComponent);
   });
 
- it('should emit add event upon add button click', async() => {
+  it('should emit add event upon add button click', async () => {
     // arange
     const promiseEventValue = component.addUrlEvent.pipe(first()).toPromise();
     // act
@@ -96,9 +96,9 @@ describe('ListUrlComponent', () => {
     // assert
     const eventValue = await promiseEventValue;
     expect(eventValue).toEqual('add');
-});
+  });
 
- it('should emit view event upon view button click', async() => {
+  it('should emit view event upon view button click', async () => {
     // arange
     const promiseEventValue = component.viewUrlEvent.pipe(first()).toPromise();
     const viewNumber = 0;
@@ -106,8 +106,8 @@ describe('ListUrlComponent', () => {
     component.notifySwitchToViewPage(viewNumber);
     // assert
     const eventValue = await promiseEventValue;
-    expect(eventValue).toEqual({'view':viewNumber});
-});
+    expect(eventValue).toEqual({ 'view': viewNumber });
+  });
 
   it('should initally update the page with list of Url', () => {
     // arrange
@@ -142,7 +142,7 @@ describe('ListUrlComponent', () => {
   it('should on click select column should be placed in selectedCoulmnNames array', () => {
     // arrange
     const columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
-                         'pdfStored', 'urlTracked'];
+      'pdfStored', 'urlTracked'];
     // act
     component.onFilterColumnNameClick(columnsName[0]);
     component.onFilterColumnNameClick(columnsName[1]);
@@ -155,7 +155,7 @@ describe('ListUrlComponent', () => {
   it('should on double click select column should be not placed in selectedCoulmnNames array', () => {
     // arrange
     const columnsName = ['title', 'url', 'tagName', 'urlLocation', 'active', 'type',
-                         'pdfStored', 'urlTracked'];
+      'pdfStored', 'urlTracked'];
     // act
     component.onFilterColumnNameClick(columnsName[0]);
     component.onFilterColumnNameClick(columnsName[0]);
@@ -168,43 +168,43 @@ describe('ListUrlComponent', () => {
 
 
 
-  class MockBigDataGetUrlService {
-    getAll(): Observable<string> {
-      return of(this.getMockData());
-    }
-
-    private getMockData(): string {
-      return JSON.stringify([
-        expectedUrlObject2, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-        expectedUrlObject2, 
-        expectedUrlObject, 
-        expectedUrlObject, 
-      ]);
-    }
-
-    getOne(recordNum: number): Observable<string> {
-      const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
-      return of(JSON.stringify(listOfUrlRecords[recordNum]));
-    }
+class MockBigDataGetUrlService {
+  getAll(): Observable<string> {
+    return of(this.getMockData());
   }
+
+  private getMockData(): string {
+    return JSON.stringify([
+      expectedUrlObject2,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject,
+      expectedUrlObject2,
+      expectedUrlObject,
+      expectedUrlObject,
+    ]);
+  }
+
+  getOne(recordNum: number): Observable<string> {
+    const listOfUrlRecords: UrlModel[] = JSON.parse(this.getMockData());
+    return of(JSON.stringify(listOfUrlRecords[recordNum]));
+  }
+}
 
 
 describe('ListUrlComponent huge amount of data handling', () => {
@@ -215,21 +215,21 @@ describe('ListUrlComponent huge amount of data handling', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListUrlComponent ],
+      declarations: [ListUrlComponent],
       imports: [HttpClientModule],
       providers: [
         ListUrlComponent,
-        {provide: GetUrlService, useClass: MockBigDataGetUrlService},
-        {provide: DeleteUrlService, useClass: MockDeleteUrlSevice},
+        { provide: GetUrlService, useClass: MockBigDataGetUrlService },
+        { provide: DeleteUrlService, useClass: MockDeleteUrlSevice },
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     component = TestBed.inject(ListUrlComponent);
     // fixture = TestBed.createComponent(ListUrlComponent);
   });
 
-// page switching
+  // page switching
   it('should display only ten url records on the first page', () => {
     // arrange
     component.ngOnInit();
@@ -322,7 +322,7 @@ describe('ListUrlComponent huge amount of data handling', () => {
   });
 
 
-// searching
+  // searching
   it('search should check title and return only matching url records', () => {
     // arange
     component.ngOnInit();

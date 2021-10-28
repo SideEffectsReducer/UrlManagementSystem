@@ -1,10 +1,10 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ViewUrlComponent} from './view-url.component';
-import {UrlModel} from '../shared/models/url.model';
-import {first} from 'rxjs/operators';
-import {GetUrlService} from '../get-url.service';
-import {HttpClientModule} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ViewUrlComponent } from './view-url.component';
+import { UrlModel } from '../shared/models/url.model';
+import { first } from 'rxjs/operators';
+import { GetUrlService } from '../get-url.service';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 /********************* */
 // TO DO:
@@ -19,32 +19,32 @@ describe('ViewUrlComponent', () => {
   let fixture: ComponentFixture<ViewUrlComponent>;
 
   const expectedUrlObject =
-    {
-      '_id': 0,
-      'title': 'Mock title',
-      'tagName': 'Mock tag',
-      'url': 'Mock url',
-      'urlLocation': 'Mock url location',
-      'active': 'true',
-      'type': 'Mock type',
-      'pdfLocation': 'Mock pdf location',
-      'pdfStored': 'true',
-      'urlTracked': 'true',
-    };
+  {
+    '_id': 0,
+    'title': 'Mock title',
+    'tagName': 'Mock tag',
+    'url': 'Mock url',
+    'urlLocation': 'Mock url location',
+    'active': 'true',
+    'type': 'Mock type',
+    'pdfLocation': 'Mock pdf location',
+    'pdfStored': 'true',
+    'urlTracked': 'true',
+  };
 
   const expectedUrlObject2 =
-    {
-      '_id': 0,
-      'title': 'Mock title2',
-      'tagName': 'Mock tag2',
-      'url': 'Mock url2',
-      'urlLocation': 'Mock url location2',
-      'active': false,
-      'type': 'Mock type2',
-      'pdfLocation': 'Mock pdf location2',
-      'pdfStored': false,
-      'urlTracked': false,
-    };
+  {
+    '_id': 0,
+    'title': 'Mock title2',
+    'tagName': 'Mock tag2',
+    'url': 'Mock url2',
+    'urlLocation': 'Mock url location2',
+    'active': false,
+    'type': 'Mock type2',
+    'pdfLocation': 'Mock pdf location2',
+    'pdfStored': false,
+    'urlTracked': false,
+  };
 
   function createComponent() {
     TestBed.configureTestingModule({
@@ -52,7 +52,7 @@ describe('ViewUrlComponent', () => {
       imports: [HttpClientModule],
       providers: [
         ViewUrlComponent,
-        {provide: GetUrlService, useClass: MockGetUrlService}
+        { provide: GetUrlService, useClass: MockGetUrlService }
       ],
     });
   }
@@ -73,10 +73,10 @@ describe('ViewUrlComponent', () => {
   }
 
 
-  function verifyHtmlNode(htmlNodeId: string, expectedValue: any){
-        const root = fixture.debugElement.nativeElement;
-        let input: HTMLInputElement = root.querySelector(htmlNodeId);
-        expect(input.value).toEqual(expectedValue);
+  function verifyHtmlNode(htmlNodeId: string, expectedValue: any) {
+    const root = fixture.debugElement.nativeElement;
+    let input: HTMLInputElement = root.querySelector(htmlNodeId);
+    expect(input.value).toEqual(expectedValue);
   }
 
   beforeEach(() => {
@@ -88,7 +88,7 @@ describe('ViewUrlComponent', () => {
 
   it('should initalize urlModel with default values', () => {
     // arrange
-    const defaultUrlObject = 
+    const defaultUrlObject =
     {
       '_id': 0,
       "title": "",
@@ -99,7 +99,7 @@ describe('ViewUrlComponent', () => {
       "type": "",
       "pdfLocation": "",
       "pdfStored": false,
-      "urlTracked": false 
+      "urlTracked": false
     };
     // act
     // nothing here
@@ -126,7 +126,7 @@ describe('ViewUrlComponent', () => {
   });
 
 
-  it('should emit list event upon back button click', async() => {
+  it('should emit list event upon back button click', async () => {
     // arange
     const promiseEventValue = component.backUrlEvent.pipe(first()).toPromise();
     // act
@@ -144,5 +144,5 @@ describe('ViewUrlComponent', () => {
     component.ngOnInit();
     // assert
     expect(component.urlRecord).toEqual(expectedUrlObject2);
-  });  
+  });
 });

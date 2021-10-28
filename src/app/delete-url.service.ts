@@ -13,10 +13,10 @@ import { Observable } from 'rxjs';
 export class DeleteUrlService {
   private _urlDelete = 'http://localhost:3000/api/urlMgr/delete';
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  deleteRecord(idToRemove: number): Observable<string>{
-    const body = {id: idToRemove};
-    return this._http.delete<string>(this._urlDelete, {body: body});
-}
+  deleteRecord(idToRemove: number): Observable<string> {
+    const body = { id: idToRemove };
+    return this._http.delete<string>(this._urlDelete, { body: body });
+  }
 }

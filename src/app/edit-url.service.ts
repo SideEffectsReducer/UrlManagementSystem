@@ -11,13 +11,13 @@ export class EditUrlService {
   constructor(private _http: HttpClient) { }
 
 
-editOne(record: UrlModel){
-  console.log(record._id);
-  const endPoint = this._url + '/' + record._id; 
-  this._http.post<string>(endPoint, record).subscribe(
+  editOne(record: UrlModel) {
+    console.log(record._id);
+    const endPoint = this._url + '/' + record._id;
+    this._http.post<string>(endPoint, record).subscribe(
       () => alert('success!'),
       (error) => alert('error!\n' + error)
     )
-}
+  }
 
 }

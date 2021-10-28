@@ -17,19 +17,19 @@ describe('EditUrlService', () => {
     });
   }
 
-const expectedUrlObject: UrlModel =
-    {
-      '_id': 0,
-      'title': 'Mock title',
-      'tagName': 'Mock tag',
-      'url': 'Mock url',
-      'urlLocation': 'Mock url location',
-      'active': true,
-      'type': 'Mock type',
-      'pdfLocation': 'Mock pdf location',
-      'pdfStored': true,
-      'urlTracked': true,
-    };
+  const expectedUrlObject: UrlModel =
+  {
+    '_id': 0,
+    'title': 'Mock title',
+    'tagName': 'Mock tag',
+    'url': 'Mock url',
+    'urlLocation': 'Mock url location',
+    'active': true,
+    'type': 'Mock type',
+    'pdfLocation': 'Mock pdf location',
+    'pdfStored': true,
+    'urlTracked': true,
+  };
 
   beforeEach(() => {
     createComponent();
@@ -47,12 +47,12 @@ const expectedUrlObject: UrlModel =
     setTimeout(expectProperEndPointToBeCalled, 1000);
 
     //assert
-    function expectProperEndPointToBeCalled(){
+    function expectProperEndPointToBeCalled() {
       //Get a mock request for the URL
       const mockRequest = controller.expectOne("http://localhost:3000/api/urlMgr/edit/11");
       //Supply mock data
-      mockRequest.flush(JSON.stringify('')); 
+      mockRequest.flush(JSON.stringify(''));
     }
   });
-  
-}); 
+
+});

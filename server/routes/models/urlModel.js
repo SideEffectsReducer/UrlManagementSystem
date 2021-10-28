@@ -9,12 +9,12 @@ const Schema = mongoose.Schema;
 
 const urlSchema = new Schema({
     title: {
-            type: String,
-             required: true
+        type: String,
+        required: true
     },
     tagName: {
-            type: String,
-            required: true
+        type: String,
+        required: true
     },
     url: {
         type: String,
