@@ -2,6 +2,10 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {UrlModel} from "../shared/models/url.model";
 import {SaveUrlService} from '../save-url.service';
 
+/********************* */
+// TO DO:
+// - html form validation
+/********************* */
 @Component({
   selector: 'app-add-url',
   templateUrl: './add-url.component.html',

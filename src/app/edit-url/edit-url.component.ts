@@ -3,6 +3,11 @@ import { EditUrlService } from '../edit-url.service';
 import { GetUrlService } from '../get-url.service';
 import { UrlModel } from '../shared/models/url.model';
 
+/********************* */
+// TO DO:
+// - html form validation
+/********************* */
+
 @Component({
   selector: 'app-edit-url',
   templateUrl: './edit-url.component.html',

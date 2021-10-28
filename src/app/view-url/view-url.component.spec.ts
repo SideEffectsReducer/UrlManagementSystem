@@ -6,6 +6,13 @@ import {GetUrlService} from '../get-url.service';
 import {HttpClientModule} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 
+/********************* */
+// TO DO:
+// - html unit testing
+// - equivalent class testing and corner cases
+// - negative testing
+// - e2e testing with protractor
+/********************* */
 
 describe('ViewUrlComponent', () => {
   let component: ViewUrlComponent;

@@ -2,6 +2,11 @@ import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {UrlModel} from '../shared/models/url.model';
 import {GetUrlService} from '../get-url.service';
 
+/********************* */
+// TO DO:
+// - html form validation
+/********************* */
+
 @Component({
   selector: 'app-view-url',
   templateUrl: './view-url.component.html',

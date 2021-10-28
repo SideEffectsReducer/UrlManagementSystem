@@ -2,6 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
+/********************* */
+// TO DO:
+// - insted of record number use unique id for getting url Record
+/********************* */
+
 @Injectable(
     {
       providedIn: 'root',

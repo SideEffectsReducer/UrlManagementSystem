@@ -4,6 +4,14 @@ import {EditUrlService} from '../edit-url.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+/********************* */
+// TO DO:
+// - html unit testing
+// - equivalent class testing and corner cases
+// - negative testing
+// - e2e testing with protractor
+/********************* */
+
 describe('EditUrlComponent', () => {
   let component: EditUrlComponent;
   let editUrlService: EditUrlService;

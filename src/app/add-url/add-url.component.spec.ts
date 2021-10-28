@@ -8,6 +8,16 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+
+/********************* */
+// TO DO:
+// - html unit testing
+// - equivalent class testing and corner cases
+// - negative testing
+// - e2e testing with protractor
+/********************* */
+
+
 describe('AddUrlComponent', () => {
   let component: AddUrlComponent;
   let saveUrlService: SaveUrlService;

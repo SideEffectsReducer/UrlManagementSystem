@@ -8,10 +8,15 @@ import { first } from 'rxjs/operators';
 import { DeleteUrlService } from '../delete-url.service';
 import * as _ from "lodash";
 
-// Not covered testing topics
-// - negative testing
-// - column view switching end to end testing needed
+/********************* */
+// TO DO:
 // - html fields are updated after init.
+// - column view switching positive testing
+// - html unit testing
+// - equivalent class testing and corner cases
+// - negative testing
+// - e2e testing with protractor
+/********************* */
 
   const expectedUrlObject =
     {

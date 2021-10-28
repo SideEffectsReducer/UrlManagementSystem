@@ -4,6 +4,11 @@ import {GetUrlService} from '../get-url.service';
 import {DeleteUrlService} from '../delete-url.service';
 import * as _ from "lodash";
 
+/********************* */
+// TO DO:
+// - html form validation
+/********************* */
+
 @Component({
   selector: 'app-list-url',
   templateUrl: './list-url.component.html',
