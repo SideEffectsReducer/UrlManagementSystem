@@ -36,10 +36,10 @@ describe('AddUrlComponent', () => {
 
 
  it('should initalize urlModel with default values', () => {
-    // arrange
-    const defaultUrlObject = 
+    // arrange 
+    const defaultUrlObject = Object.assign({}, new UrlModel(),
     {
-      '_id': 0,
+      '_id': null,
       "title": "",
       "tagName": "",
       "url": "",
@@ -49,7 +49,7 @@ describe('AddUrlComponent', () => {
       "pdfLocation": "",
       "pdfStored": false,
       "urlTracked": false 
-    };
+    });
     // act
     // nothing here
     // assert

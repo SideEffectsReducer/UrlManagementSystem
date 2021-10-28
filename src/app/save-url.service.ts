@@ -5,7 +5,7 @@ import { UrlModel } from "./shared/models/url.model";
   providedIn: 'root'
 })
 export class SaveUrlService {
-  private _url = "http://localhost:3000/api/example/add";
+  private _url = "http://localhost:3000/api/urlMgr/add";
 
   constructor(private _http: HttpClient) { }
 

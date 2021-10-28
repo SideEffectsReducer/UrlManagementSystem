@@ -26,7 +26,7 @@ describe('DeleteUrlService', () => {
     let promiseResult = service.deleteRecord(urlNumber).toPromise();
 
     // assert
-    const mockRequest = controller.expectOne('http://localhost:3000/api/example/delete');
+    const mockRequest = controller.expectOne('http://localhost:3000/api/urlMgr/delete');
     mockRequest.flush(JSON.stringify(" "));  // do not delete it
     let result = await promiseResult; 
   });

@@ -34,7 +34,7 @@ const urlRecord2 = {
 
 async function addUrlRecordToDB(urlRecord) {
   const res = await request(app)
-    .post('/api/example/add')
+    .post('/api/urlMgr/add')
     .send(urlRecord);
   return res.body._id;
 }
@@ -87,7 +87,7 @@ describe('GET url record end points', function () {
 
   it('should get list of url record when endpoint /api/exmaple/list requested', function (done) {
     request(app)
-      .get('/api/example/list')
+      .get('/api/urlMgr/list')
       .set('Accept', 'application/json')
       .expect((res) => {
         console.log(res.body);
@@ -121,9 +121,9 @@ describe('GET url record end points', function () {
       .expect(200, done);
   });
 
-  it('should get one url record when endpoint /api/example/one/:number requested', function (done) {
+  it('should get one url record when endpoint /api/urlMgr/one/:number requested', function (done) {
     request(app)
-      .get('/api/example/one/0')
+      .get('/api/urlMgr/one/0')
       .set('Accept', 'application/json')
       .expect((res) => {
         console.log(res.body);
@@ -167,9 +167,9 @@ describe('POST delete url record endpoints', () => {
   }
 
 
-  it('should delete one url record when endpoint /api/example/delete requested', async () => {
+  it('should delete one url record when endpoint /api/urlMgr/delete requested', async () => {
     await request(app)
-      .delete('/api/example/delete')
+      .delete('/api/urlMgr/delete')
       .send({ 'id': 0 })
       .expect((res) => {
         expect(res.statusCode).toEqual(202);
@@ -178,7 +178,7 @@ describe('POST delete url record endpoints', () => {
     await sleep(getRequest);
     async function getRequest() {
       await request(app)
-        .get('/api/example/one/0')
+        .get('/api/urlMgr/one/0')
         .set('Accept', 'application/json')
         .expect((res) => {
           const dataUrlRecord = JSON.parse(res.body);
@@ -224,7 +224,7 @@ describe('POST edit url record endpoints', () => {
   }
 
 
-  it('should edit one url record when endpoint /api/example/edit/:number requested', async () => {
+  it('should edit one url record when endpoint /api/urlMgr/edit/:number requested', async () => {
     const modifiedUrlRecord = {
       title: "xTitle",
       tagName: "xTagName",
@@ -239,7 +239,7 @@ describe('POST edit url record endpoints', () => {
 
 
     await request(app)
-      .post('/api/example/edit/' + id_1)
+      .post('/api/urlMgr/edit/' + id_1)
       .send(modifiedUrlRecord)
       .expect((res) => {
         expect(res.statusCode).toEqual(201);
@@ -248,7 +248,7 @@ describe('POST edit url record endpoints', () => {
     await sleep(getRequest);
     async function getRequest() {
       await request(app)
-        .get('/api/example/one/0')
+        .get('/api/urlMgr/one/0')
         .set('Accept', 'application/json')
         .expect((res) => {
           const dataUrlRecord = JSON.parse(res.body);
@@ -279,9 +279,9 @@ describe('POST add url record endpoints', () => {
     });
   });
 
-  it('should post one url record when endpoint /api/example/add requested', async () => {
+  it('should post one url record when endpoint /api/urlMgr/add requested', async () => {
     const res = await request(app)
-      .post('/api/example/add')
+      .post('/api/urlMgr/add')
       .send(urlRecord);
     expect(res.statusCode).toEqual(201);
     expect(res.body.title).toEqual(urlRecord.title);

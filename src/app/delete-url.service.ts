@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DeleteUrlService {
-  private _urlDelete = 'http://localhost:3000/api/example/delete';
+  private _urlDelete = 'http://localhost:3000/api/urlMgr/delete';
 
   constructor(private _http : HttpClient) { }
 

@@ -49,7 +49,7 @@ const expectedUrlObject: UrlModel =
     //assert
     function expectProperEndPointToBeCalled(){
       //Get a mock request for the URL
-      const mockRequest = controller.expectOne("http://localhost:3000/api/example/edit/11");
+      const mockRequest = controller.expectOne("http://localhost:3000/api/urlMgr/edit/11");
       //Supply mock data
       mockRequest.flush(JSON.stringify('')); 
     }

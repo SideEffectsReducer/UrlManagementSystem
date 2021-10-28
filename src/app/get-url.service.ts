@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
       providedIn: 'root',
     })
 export class GetUrlService {
-  private _url = 'http://localhost:3000/api/example';
+  private _url = 'http://localhost:3000/api/urlMgr';
 
   constructor(private _http: HttpClient) { }
 

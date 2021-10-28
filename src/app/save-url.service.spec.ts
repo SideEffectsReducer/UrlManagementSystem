@@ -42,7 +42,7 @@ describe('SaveUrlService', () => {
     service.save(expectedUrlObject);
     // assert
     //Get a mock request for the URL
-    const mockRequest = controller.expectOne("http://localhost:3000/api/example/add");
+    const mockRequest = controller.expectOne("http://localhost:3000/api/urlMgr/add");
     expect(mockRequest.request.body).toEqual(expectedUrlObject);
   });
 });

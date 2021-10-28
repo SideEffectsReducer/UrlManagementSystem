@@ -6,7 +6,7 @@ import { UrlModel } from './shared/models/url.model';
   providedIn: 'root'
 })
 export class EditUrlService {
-  private _url = 'http://localhost:3000/api/example/edit';
+  private _url = 'http://localhost:3000/api/urlMgr/edit';
 
   constructor(private _http: HttpClient) { }
 

@@ -37,8 +37,8 @@ app.use(cors());
     });
 
      // • We call use() on the Express application to add the Router to handle path,
-    // specifying an URL path on first parameter '/api/example'.
-    app.use('/api/example', api);
+    // specifying an URL path on first parameter '/api/urlMgr'.
+    app.use('/api/urlMgr', api);
 
 
     // • Every other route that starts with `api/` but not declared above will
@@ -84,7 +84,7 @@ setInterval(() =>{
             // console.log(str);
         });
       }
-      http.get('http://localhost:3000/api/example/list', callback);
+      http.get('http://localhost:3000/api/urlMgr/list', callback);
 }, delayMs);
 
 module.exports = {app, close};
