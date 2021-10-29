@@ -1,27 +1,43 @@
-# UrlManagementSystem
+# UrlManagementSystem   v1.0
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.4.
+The UrlManagement system is a web app which supports activities like:
+- adding/editing url records
+- searching url records in database
+- checking periodically that stored url is still active
+- generating a pdf of a page for a stored url
 
-## Development server
+Future planned features:
+- integrating system with WordPress
+- support for not working links on Wordpress blog page.
+- on a blog page once link is active url should stay, once inactive the link should be replaced with pdf url
+## Usage
+### Add Url
+![Add url png](/example/add.png)
+### Url list
+![Url list png](/example/list.png)
+### Stored generated page pdf
+![Stored pdf document png](/example/stored_pdf_document.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Set up
+1. Clone the repo
+2. Go to UrlManagementSystem folder
+3. Run `npm install`
+4. Go to server folder
+5. Run `npm install`
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Steps to run app
+1. Go to the UrlManagementSystem folder
+2. Run `npm start` in console to run angular front-end
+3. Go to server folder
+4. Run `npm start` in console to run backend-server
+5. By default app will be served on localhost:4200
 
 ## Running unit tests
+1. Clone the repo
+2. Go to UrlManagementSystem folder
+3. Run `npm test`
+4. Go to server folder
+5. Run `ng test` (running server unit test will remove !!! database please select test_database in server.js file)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![Unit tests](/example/unit_test.png)
